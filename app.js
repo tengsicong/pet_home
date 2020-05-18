@@ -7,9 +7,13 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const config = require('config-lite')(__dirname);
 const bodyParser = require('body-parser');
+const db = require('./db/connection');
 
+// routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const animalRouter = require('./routes/animal');
+const petTypeRouter = require('./routes/pettype');
 
 const app = express();
 
@@ -37,6 +41,9 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/animal', animalRouter);
+app.use('/petType', petTypeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
