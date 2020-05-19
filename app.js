@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 // routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const signinRouter = require('./routes/signin');
 const animalRouter = require('./routes/animal');
 const petTypeRouter = require('./routes/pettype');
 const adminRouter = require('./routes/admin');
@@ -40,6 +41,7 @@ app.use(session({
 }));
 
 app.use('/', indexRouter);
+app.use('/', signinRouter);
 app.use('/users', usersRouter);
 app.use('/animal', animalRouter);
 app.use('/petType', petTypeRouter);
