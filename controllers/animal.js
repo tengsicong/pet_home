@@ -1,8 +1,12 @@
-'use strict'
+'use strict';
 const Animal = require('../models/animal');
 const User = require('../models/user');
+const Admin = require('../models/admin')
 
-const create = function (req, res) {
+//temp attribute
+const adminId = mongoose.Types.ObjectId('');
+
+const create = function(req, res) {
     const data = req.body;
     User.findOne({name: data.ownerName})
         .exec()
@@ -38,24 +42,26 @@ const list = function(req, res) {
         .then((doc) => {
             console.log('animal owner' + doc);
             res.render('addAnimal', {animals: doc});
-        }).catch(err => {
-        res.render('err');
-    });
-}
-
-const adminGetList = function (req, res) {
-    Animal.find()
-        .populate('owner')
-        .exec()
-        .then(doc => {
-            console.log('animal owner' + doc);
-            res.render('addAnimal', {animals: doc});
-        }).catch(err => {
-        res.render('err');
-    });
-}
-        }).catch(() => {
+        }).catch((err) => {
             res.render('err');
+        });
+};
+
+const adminGetList = function(req, res) {
+    // const adminId = req.session.id;
+    promise.all([
+        Animal.find()
+            .populate('adopter')
+            .exec(),
+        // Admin.
+    ])
+        .then(function(result) {
+            const animals = result;
+            res.render('admin/pets', {
+                pageTitle: 'Pets_List',
+                animals: animals,
+
+            })
         });
 };
 
