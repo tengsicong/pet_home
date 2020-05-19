@@ -37,7 +37,7 @@ animalSchema.virtual('age').get(
         if (this.dob) {
             const currentYear = new Date().getFullYear();
             // eslint-disable-next-line no-invalid-this
-            return currentYear - this.dob.getFullYear();
+            return currentYear - this.dob.getFullYear() + 1;
         } else {
             return 0;
         }

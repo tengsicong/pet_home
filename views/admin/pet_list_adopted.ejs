@@ -1,0 +1,39 @@
+<%- include('component/header') %>
+
+<br>
+<br>
+<br>
+<div class="container col-4">
+    <h1>Pet List<button class="btn btn-success" style="float: right">add</button> </h1>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="/admin/pet_list_waiting">waiting</a></li>
+        <li role="presentation" class="active"><a href="/admin/pet_list_adopted">adopted</a></li>
+    </ul>
+    <% if (animals.length == 0) { %>
+        <div class="alert alert-warning" role="alert">No animal has been adopted</div>
+    <% } else { %>
+        <% for (let i = 0; i < animals.length; i++) { %>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="media">
+                <a href="/admin/pet_detail?id=<%- animals[i]._id %>">
+                    <div class="media-left media-middle">
+                        <img class="media-object" src="<%= animals[i].imgUrl %>" alt="No Image" style="width: 8em; height: 8em">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><%= animals[i].name%></h4>
+                        <%= animals[i].detail %>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <% } %>
+        <% } %>
+    </ul>
+</div>
+<br>
+<br>
+<br>
+
+</body>
+</html>

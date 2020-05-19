@@ -7,73 +7,74 @@ const mongoose = require('mongoose');
 // temp attribute
 const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
 
-const create = function(req, res) {
-//     const data = req.body;
-//     User.findOne({name: data.ownerName})
-//         .exec()
-//         .then((doc) => {
-//             const animal = new Animal({
-//                 name: data.name,
-//                 petType: data.type_id,
-//                 location: data.location,
-//                 dob: data.dob,
-//                 owner: doc._id,
-//             });
-//             animal.save()
-//                 .then((doc) => {
-//                     console.log('success----');
-//                     console.log(doc);
-//                     res.status(200).json(doc);
-//                 })
-//                 .catch((err) => {
-//                     console.log('error----');
-//                     console.log(err);
-//                     res.status(500).json(err);
-//                 });
-//         })
-//         .catch(() => {
-//             return res.status(500).json('dont find owner');
-//         });
-// };
-//
-// const list = function(req, res) {
-//     Animal.find()
-//         .populate('owner')
-//         .exec()
-//         .then((doc) => {
-//             console.log('animal owner' + doc);
-//             res.render('addAnimal', {animals: doc});
-//         }).catch((err) => {
-//             res.render('err');
-//         });
-};
-
-const adminGetList = function(req, res) {
+const getWaitingList = function(req, res) {
     // const adminId = req.session.id;
-    promise.all([
-        Animal.find()
+    Promise.all([
+        Animal.find({status: 'Waiting'})
             .populate('adopter')
             .exec(),
         Admin.findOne({_id: adminId})
             .exec(),
-    ])
-        .then(function(result) {
-            const animals = result[0];
-            const admin = result[1];
-            res.render('admin/pets', {
-                pageTitle: 'Pets_List',
-                animals: animals,
-                admin: admin,
-            });
+    ]).then((result) => {
+        const animals = result[0];
+        const admin = result[1];
+        res.render('admin/pet_list_waiting', {
+            pageTitle: 'Pets_List',
+            animals: animals,
+            admin: admin,
         });
+    }).catch((err) => {
+        res.render(err);
+    });
 };
 
-function list() {
+const getAdoptedList = function(req, res) {
+    // const adminId = req.session.id;
+    Promise.all([
+        Animal.find({status: 'Adopted'})
+            .populate('adopter')
+            .exec(),
+        Admin.findOne({_id: adminId})
+            .exec(),
+    ]).then((result) => {
+        const animals = result[0];
+        const admin = result[1];
+        res.render('admin/pet_list_adopted', {
+            pageTitle: 'Pets_List',
+            animals: animals,
+            admin: admin,
+        });
+    }).catch((err) => {
+        res.render(err);
+    });
+};
 
-}
+const getAnimalDetail = function(req, res) {
+    const animalId = mongoose.Types.ObjectId(req.query.id);
+    Promise.all([
+        Animal.findOne({_id: animalId})
+            .populate('adopter')
+            .exec(),
+        Admin.findOne({_id: adminId})
+            .exec(),
+    ]).then((result) => {
+        const animal = result[0];
+        const admin = result[1];
+        console.log(animal);
+        console.log(animal.street);
+        res.render('admin/pet_detail', {
+            pageTitle: 'Pet_detail',
+            animal: animal,
+            admin: admin,
+        });
+    }).catch((err) => {
+        res.render(err);
+    });
+};
+
 
 module.exports = {
-    create: create,
-    list: list,
-    adminGetList: adminGetList,
+    getWaitingList: getWaitingList,
+    getAnimalDetail: getAnimalDetail,
+    getAdoptedList: getAdoptedList,
 };
