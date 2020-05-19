@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const animal = require('../controllers/animal');
+const animal = require('../controllers/admin/animal');
 
 router.get('/pets', function(req, res) {
     animal.adminGetList(req, res);

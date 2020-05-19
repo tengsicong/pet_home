@@ -1,50 +1,45 @@
-'use strict'
+'use strict';
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
+    surname: String,
+    firstname: String,
     email: String,
     password: String,
-    name: String,
-    gender: String,
-    birthday: Date,
-    register_date: Date,
-
 });
 
-userSchema.pre('save', function (next) {
-    if (!this.duplicateName(this.name)) {
+userSchema.pre('save', function(next) {
+    if (!this.duplicateName(this.email)) {
         throw (new Error('duplicate name!'));
     } else {
         next();
     }
-})
+});
 
 userSchema.methods = {
 
     /**
      * whether username duplicate
-     * @param name
+     * @param email
      */
-    duplicateName: function (name) {
-        User.findOne({name: name})
+    duplicateName: function(email) {
+        User.findOne({email: email})
             .exec()
-            .then(doc => {
+            .then((doc) => {
                 console.log('user doc----' + doc);
-                if (doc.name === name)
+                if (doc.name === name) {
                     return doc;
-                else
+                } else {
                     return '';
+                }
             })
-            .catch(err => {
+            .catch((err) => {
                 return err;
             });
-    }
-}
+    },
+};
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 
-/*
-*
-* */
