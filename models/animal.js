@@ -1,6 +1,11 @@
 'use strict';
 const mongoose = require('mongoose');
-const schema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
+    name: String,
+    comment: String,
+    date: Date,
+})
+const animalSchema = new mongoose.Schema({
     name: {type: String, required: true, max: 100},
     dob: {type: Date},
     petType: {type: String, required: true},
@@ -17,6 +22,8 @@ const schema = new mongoose.Schema({
     createTime: Date,
     updateTime: Date,
     status: Boolean,
+    owner: String,
+    comment: [commentSchema],
 });
 
 schema.virtual('age').get(
@@ -31,7 +38,7 @@ schema.virtual('age').get(
 
 schema.set('toObject', {getters: true, virtuals: true});
 
-const Animal = mongoose.model('animals', schema);
+const Animal = mongoose.model('animals', animalSchema);
 
 module.exports = Animal;
 
