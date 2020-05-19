@@ -10,26 +10,31 @@ const animalSchema = new mongoose.Schema({
     dob: {type: Date},
     petType: {type: String, required: true},
     petBreed: {type: String},
+    street: String,
     town: String,
     country: String,
     postcode: String,
+    location: [Number],
     detail: String,
+    owner: String,
     adopter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
     imgUrl: [String],
-    createTime: Date,
+    createTime: {type: Date, default: Date.now()},
     updateTime: Date,
-    status: Boolean,
+    status: String,
     owner: String,
     comment: [commentSchema],
 });
 
 schema.virtual('age').get(
     function() {
+        // eslint-disable-next-line no-invalid-this
         if (this.dob) {
             const currentYear = new Date().getFullYear();
+            // eslint-disable-next-line no-invalid-this
             return currentYear - this.dob.getFullYear();
         } else {
             return 0;
@@ -38,7 +43,7 @@ schema.virtual('age').get(
 
 schema.set('toObject', {getters: true, virtuals: true});
 
-const Animal = mongoose.model('animals', animalSchema);
+const Animal = mongoose.model('animals', schema);
 
 module.exports = Animal;
 

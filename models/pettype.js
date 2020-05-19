@@ -1,4 +1,3 @@
-'use strict'
 const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
     typeName: {type: String, required: true},
