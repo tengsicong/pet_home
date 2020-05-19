@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 const Animal = require('../models/animal');
 const User = require('../models/user');
 
-const create = function (req, res) {
+const create = function(req, res) {
     const data = req.body;
     User.findOne({name: data.ownerName})
         .exec()
@@ -41,9 +41,9 @@ const list = function(req, res) {
         }).catch(err => {
         res.render('err');
     });
-}
+};
 
-const adminGetList = function (req, res) {
+const adminGetList = function(req, res) {
     Animal.find()
         .populate('owner')
         .exec()
@@ -53,11 +53,13 @@ const adminGetList = function (req, res) {
         }).catch(err => {
         res.render('err');
     });
-}
-        }).catch(() => {
-            res.render('err');
-        });
 };
+}).
+catch(() => {
+    res.render('err');
+});
+}
+;
 
 module.exports = {
     create: create,
