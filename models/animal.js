@@ -43,7 +43,7 @@ schema.virtual('age').get(
 
 schema.set('toObject', {getters: true, virtuals: true});
 
-const Animal = mongoose.model('animals', schema);
+const Animal = mongoose.model('animals', animalSchema);
 
 module.exports = Animal;
 
