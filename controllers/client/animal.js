@@ -38,28 +38,10 @@ const list = function(req, res) {
         .then((doc) => {
             console.log('animal owner' + doc);
             res.render('addAnimal', {animals: doc});
-        }).catch(err => {
-        res.render('err');
+        }).catch((err) => {
+        res.render(err);
     });
 };
-
-const adminGetList = function(req, res) {
-    Animal.find()
-        .populate('owner')
-        .exec()
-        .then(doc => {
-            console.log('animal owner' + doc);
-            res.render('addAnimal', {animals: doc});
-        }).catch(err => {
-        res.render('err');
-    });
-};
-}).
-catch(() => {
-    res.render('err');
-});
-}
-;
 
 module.exports = {
     create: create,
