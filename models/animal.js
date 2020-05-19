@@ -1,4 +1,3 @@
-'use strict';
 const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema({
     name: String,
@@ -32,7 +31,7 @@ const animalSchema = new mongoose.Schema({
     comment: [commentSchema],
 });
 
-schema.virtual('age').get(
+animalSchema.virtual('age').get(
     function() {
         // eslint-disable-next-line no-invalid-this
         if (this.dob) {
@@ -44,7 +43,7 @@ schema.virtual('age').get(
         }
     });
 
-schema.set('toObject', {getters: true, virtuals: true});
+animalSchema.set('toObject', {getters: true, virtuals: true});
 
 const Animal = mongoose.model('animals', animalSchema);
 

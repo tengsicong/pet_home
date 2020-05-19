@@ -1,6 +1,6 @@
 'use strict';
-const Animal = require('../models/animal');
-const User = require('../models/user');
+const Animal = require('../../models/animal');
+const User = require('../../models/user');
 
 const create = function(req, res) {
     const data = req.body;

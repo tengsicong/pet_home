@@ -1,12 +1,13 @@
 'use strict';
-const Animal = require('../models/animal');
-const User = require('../models/user');
-const Admin = require('../models/admin')
+const Animal = require('../../models/animal');
+const User = require('../../models/user');
+const Admin = require('../../models/admin');
+const mongoose = require('mongoose');
 
-//temp attribute
+// temp attribute
 const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
 
-// const create = function(req, res) {
+const create = function(req, res) {
 //     const data = req.body;
 //     User.findOne({name: data.ownerName})
 //         .exec()
@@ -45,7 +46,7 @@ const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
 //         }).catch((err) => {
 //             res.render('err');
 //         });
-// };
+};
 
 const adminGetList = function(req, res) {
     // const adminId = req.session.id;
@@ -66,6 +67,10 @@ const adminGetList = function(req, res) {
             });
         });
 };
+
+function list() {
+
+}
 
 module.exports = {
     create: create,
