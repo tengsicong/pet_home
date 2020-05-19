@@ -5,5 +5,5 @@ module.exports = {
         key: 'pet',
         maxAge: 2592000000,
     },
-    mongodb: 'mongodb+srv://webTechUser:' + process.env.MONGO_ATLAS_PW + '@cluster0-woi6a.mongodb.net/test?retryWrites=true&w=majority',
-}
+    mongodb: 'mongodb+srv://webTechUser:nc4dkc9LIehbAcTp@cluster0-woi6a.mongodb.net/test?retryWrites=true&w=majority',
+};

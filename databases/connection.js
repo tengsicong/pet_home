@@ -1,4 +1,3 @@
-'use strict'
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://webTechUser:nc4dkc9LIehbAcTp@cluster0-woi6a.mongodb.net/test?retryWrites=true&w=majority',
@@ -6,7 +5,7 @@ mongoose.connect('mongodb+srv://webTechUser:nc4dkc9LIehbAcTp@cluster0-woi6a.mong
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', function() {
     // we're connected!
     console.log('mongoose is connected');
 });
