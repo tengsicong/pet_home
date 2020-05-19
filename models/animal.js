@@ -25,7 +25,6 @@ const animalSchema = new mongoose.Schema({
     createTime: {type: Date, default: Date.now()},
     updateTime: Date,
     status: String,
-    owner: String,
     comment: [commentSchema],
 });
 
