@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var animal = require('../controllers/animal');
 
-router.get('/', animal.list);
+router.get('/view', animal.list);
 
 router.post('/add', animal.create);
 

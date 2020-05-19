@@ -1,5 +1,5 @@
 'use strict'
-let $addAnimal = $("#addAnimal");
+const $addAnimal = $('#addAnimal');
 
 $addAnimal.submit(function () {
     var json = formDataToJson($addAnimal);

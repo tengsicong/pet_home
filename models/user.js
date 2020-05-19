@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function (next) {
     if (!this.duplicateName(this.name)) {
-        throw (new Error("duplicate name!"));
+        throw (new Error('duplicate name!'));
     } else {
         next();
     }
@@ -41,7 +41,7 @@ userSchema.methods = {
     }
 }
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 

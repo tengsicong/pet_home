@@ -1,0 +1,47 @@
+<%- include('component/header') %>
+
+<div class="container col-4">
+    <h1 class="my-5" style="text-align: center"> Add New Animal</h1>
+    <form id="addAnimal">
+        <div class="form-group">
+            <label for="ownerName">Owner name:</label>
+            <input id="ownerName" class="form-control" name="ownerName" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" class="form-control" name="name" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="pettype">Pet Type:</label>
+            <select id="pettype" class="form-control" name="type_id">
+                <option value="" selected="selected">
+                    Pet Type (Any)
+                </option>
+                <option value="1">Birds</option>
+                <option value="2">Cats</option>
+                <option value="3">Dogs</option>
+                <option value="4">Fish</option>
+                <option value="5">Horses</option>
+                <option value="6">Poultry</option>
+                <option value="7">Rabbits</option>
+                <option value="8">Reptiles</option>
+                <option value="9">Rodents</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputLocation">Location:</label>
+            <input id="inputLocation" class="form-control" name="location" type="text">
+        </div>
+        <div class="form-group">
+            <label for="birthday">Birthday:</label>
+            <input id="birthday" class="form-control" name="dob" type="date">
+        </div>
+        <div style="text-align: center">
+            <button id="submitAddAnimal" class="btn btn-primary" >submit</button>
+        </div>
+    </form>
+</div>
+<script src="/javascripts/mycommon.js"></script>
+<script src="/javascripts/addAnimal.js"></script>
+</body>
+</html>

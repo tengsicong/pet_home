@@ -1,7 +1,8 @@
 'use strict'
 const mongoose = require('mongoose');
+const config = require('config-lite')(__dirname);
 
-mongoose.connect('mongodb+srv://webTechUser:nc4dkc9LIehbAcTp@cluster0-woi6a.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect(config.mongodb,
     {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;

@@ -3,7 +3,7 @@ const Animal = require('../models/animal');
 const User = require('../models/user');
 
 const create = function (req, res) {
-    let data = req.body;
+    const data = req.body;
     User.findOne({name: data.ownerName})
         .exec()
         .then(doc => {
@@ -43,7 +43,20 @@ const list = function (req, res) {
     });
 }
 
+const adminGetList = function (req, res) {
+    Animal.find()
+        .populate('owner')
+        .exec()
+        .then(doc => {
+            console.log('animal owner' + doc);
+            res.render('addAnimal', {animals: doc});
+        }).catch(err => {
+        res.render('err');
+    });
+}
+
 module.exports = {
     create: create,
-    list: list
+    list: list,
+    adminGetList: adminGetList,
 };
