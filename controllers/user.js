@@ -1,5 +1,5 @@
 'use strict'
-const User = require('../model/user');
+const User = require('../models/user');
 
 function save(req, res) {
     let firstUser = new User({

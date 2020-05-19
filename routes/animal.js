@@ -1,7 +1,7 @@
 'use strict'
 var express = require('express');
 var router = express.Router();
-var animal = require('../controller/animal');
+var animal = require('../controllers/animal');
 
 router.get('/', animal.list);
 

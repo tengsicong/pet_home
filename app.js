@@ -7,7 +7,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const config = require('config-lite')(__dirname);
 const bodyParser = require('body-parser');
-const db = require('./db/connection');
 
 // routers
 const indexRouter = require('./routes/index');
