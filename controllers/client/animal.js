@@ -39,12 +39,11 @@ const list = function(req, res) {
             console.log('animal owner' + doc);
             res.render('addAnimal', {animals: doc});
         }).catch((err) => {
-        res.render(err);
-    });
+            res.render(err);
+        });
 };
 
 module.exports = {
     create: create,
     list: list,
-    adminGetList: adminGetList,
 };

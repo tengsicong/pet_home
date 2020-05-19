@@ -16,7 +16,10 @@ const Schema = new mongoose.Schema({
     family: String,
     animalAlreadyHave: String,
     reason: String,
-    status: {type: Number, default: 0}, // 0:waiting check, 1:passed, 2:rejected
+    status: {
+        type: String,
+        enum: ['Pending', 'Approved', 'Rejected'],
+    },
     createTime: {type: Date, default: Date.now()},
 });
 

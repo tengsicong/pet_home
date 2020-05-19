@@ -4,7 +4,7 @@ const commentSchema = new mongoose.Schema({
     name: String,
     comment: String,
     date: Date,
-})
+});
 const animalSchema = new mongoose.Schema({
     name: {type: String, required: true, max: 100},
     dob: {type: Date},
@@ -17,6 +17,7 @@ const animalSchema = new mongoose.Schema({
     location: [Number],
     detail: String,
     owner: String,
+    telephone: String,
     adopter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -24,7 +25,10 @@ const animalSchema = new mongoose.Schema({
     imgUrl: [String],
     createTime: {type: Date, default: Date.now()},
     updateTime: Date,
-    status: String,
+    status: {
+        type: String,
+        enum: ['Waiting', 'Applied', 'Adopted'],
+    },
     comment: [commentSchema],
 });
 
