@@ -19,14 +19,14 @@ const animalSchema = new mongoose.Schema({
     telephone: String,
     adopter: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'users',
     },
     imgUrl: [String],
     createTime: {type: Date, default: Date.now()},
     updateTime: Date,
     status: {
         type: String,
-        enum: ['Waiting', 'Applied', 'Adopted'],
+        enum: ['Waiting', 'Adopted'],
     },
     comment: [commentSchema],
 });

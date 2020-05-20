@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
     candidate: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'users',
     },
     animal: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Animal',
+        ref: 'animals',
     },
     telephone: String,
     street: String,
@@ -23,6 +23,7 @@ const Schema = new mongoose.Schema({
     createTime: {type: Date, default: Date.now()},
 });
 
-const Apply = mongoose.model('Apply', Schema);
+
+const Apply = mongoose.model('applys', Schema);
 
 module.exports = Apply;
