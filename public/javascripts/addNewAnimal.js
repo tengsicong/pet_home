@@ -6,29 +6,24 @@ function sendAjaxQuery(url, data) {
         type: 'POST',
         processData: false,
         contentType: false,
-        success: function (dataR) {
-            // no need to JSON parse the result, as we are using
-            // dataType:json, so JQuery knows it and unpacks the
-            // object for us before returning it
-            var ret = dataR;
-            // in order to have the object printed by alert
-            // we need to JSON stringify the object
-            document.getElementById('results').innerHTML= JSON.stringify(ret);
+        success: function(dataR) {
+            alert('you have successful upload this animal');
+            window.location.href = '/admin/pet_list_waiting';
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
 
             alert('Error: ' + error.message);
-        }
+        },
     });
 }
 
-function onSubmit() {
-
+function addNewAnimal() {
     event.preventDefault();
     event.stopImmediatePropagation();
-    var myForm = document.getElementById('xForm');
+    var myForm = document.getElementById('addNewAnimal');
     var formData = new FormData(myForm);
     console.log(formData);
-    sendAjaxQuery('/admin/add_new_animal', formData);
+    sendAjaxQuery('/admin/create', formData);
     return false;
 }
+

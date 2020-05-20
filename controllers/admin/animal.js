@@ -65,10 +65,35 @@ const loadAddNew = function(req, res) {
     });
 }
 
-const create = function(req, res) {
-    console.log('enter');
+const createNew = function(req, res) {
+    console.log('enter controller');
     const data = req.body;
+    const path = req.file.path;
+    console.log('load');
     console.log(data);
+    console.log(path);
+    const animal = new Animal({
+        name: data.name,
+        dob: data.dob,
+        petType: data.petType,
+        petBreed: data.petBreed,
+        owner: data.owner,
+        telephone: data.telephone,
+        street: data.street,
+        town: data.town,
+        country: data.country,
+        postcode: data.postcode,
+        detail: data.detail,
+        status: 'Waiting',
+        imgUrl: path.substring(6),
+    });
+    animal.save(function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(animal));
+    });
 }
 
 module.exports = {
@@ -76,5 +101,6 @@ module.exports = {
     getAnimalDetail: getAnimalDetail,
     getAdoptedList: getAdoptedList,
     loadAddNew: loadAddNew,
-    create: create,
+    createNew: createNew,
 };
+
