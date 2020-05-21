@@ -44,7 +44,35 @@ const adminLogin = function(req, res) {
         });
 };
 
+const login = function(req, res) {
+    const email = req.body.email;
+    const password = req.body.password;
+    const role = req.body.role;
+    let checkInformation;
+    if (role == 'user') {
+        checkInformation = User.findOne({email: email}).exec();
+    } else if (role == 'admin') {
+        checkInformation = Admin.findOne({email: email}).exec();
+    }
+    checkInformation.then(function(result) {
+        const person = result;
+        if (person != null && password == person.password) {
+            req.session.userId = person._id;
+            req.session.name = person.name;
+            req.session.role = role;
+            req.session.save(function(result) {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.stringify(req.session));
+            });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(req.session));
+        }
+    });
+}
+
 module.exports = {
     userLogin: userLogin,
     adminLogin: adminLogin,
+    login: login,
 }
