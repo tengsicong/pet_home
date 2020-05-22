@@ -1,26 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
-    <link rel='stylesheet' href='/stylesheets/bootstrap-grid.css'/>
-    <link rel='stylesheet' href='/stylesheets/bootstrap-reboot.css'/>
-    <script src="/javascripts/bootstrap.js"></script>
-    <script src="/javascripts/bootstrap.bundle.js"></script>
+    <title>Bootstrap 4 Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/common.css">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/mycommon.js"></script>
+    <script src="/javascripts/index_page.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row m-5">
-        <h1><%= title %></h1>
+<header class="mb-5">
+    <div class="navbar navbar-expand-lg navbar-dark bg-indigo">
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/"><img style="height: 50%; width: 50%" src="favicon.ico"></a>
+            <div class="row mx-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/" class="navbar-brand"><span
+                                    class="font-italic font-weight-bolder">Pets Home</span></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+                <ul class="navbar-nav mx-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signUp">Sign up</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Collapsible content -->
+        </div>
     </div>
-    <div class="row m-3">
-        <p>Welcome to <%= title %></p>
+</header>
+<main>
+    <div class="container">
+        <!--search area-->
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 mb-3">
+                <img src="/images/friends-1149841_640.jpg" class="img-fluid">
+            </div>
+            <div class="col-lg-4 mb-3">
+                <h4 class="mb-5 display-4 font-italic">
+                    Find the love for your life ❤
+                </h4>
+                <form class="mb-5" id="searchForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="petType">Pets Type</label>
+                            <select name="petType" id="petType" class="form-control" onchange="updateSubSelector(this)">
+                                <option value="" selected>Any type</option>
+                                <% for (const petType of petTypes){ %>
+                                    <option value="<%= petType.typeName %>"><%= petType.typeName %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="petBreed">Pets Breed</label>
+                            <select name="petBreed" id="petBreed" class="form-control">
+                                <option value="" selected>Any breed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input name="name" id="name" type="text" class="form-control" placeholder="White cat">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="postcode">Postcode</label>
+                            <input type="text" class="form-control" id="postcode"
+                                 name="postcode"  placeholder="S10 2TN">
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-end">
+                        <button id="submit" type="submit" class="btn btn-indigo">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--./search area-->
+        <!--display content-->
+        <div class="row m-2">
+            <h4 class="display-4 font-italic">Latest Pets Info</h4>
+        </div>
+        <div class="row mb-5" id="animalContent">
+            <% for( const animal of animals){ %>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <!--Card-->
+                    <div class="card" data-detail="">
+                        <!--Card image-->
+                        <div class="embed-responsive embed-responsive-3by2">
+                            <img src="<%= animal.imgUrl[0] %>"
+                                 class="card-img-top embed-responsive-item" alt="<%= animal.petType %>">
+                        </div>
+                        <!--Card content-->
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i>
+                                Updated <%= animal.intervalFromLastUpdate %> ago</p>
+                            <!--pet name-->
+                            <h4 class="card-title"><%= animal.name %></h4>
+                            <!--pet brief-->
+                            <p class="card-text"><%= animal.petType %><span
+                                        class="float-right"><%= animal.petBreed %></span></p>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+            <% } %>
+        </div>
+        <!--display content-->
     </div>
-    <div class="row m-3">
-        <h1>My First Bootstrap Page</h1>
-    </div>
+</main>
 
+<footer class="text-muted bg-indigo">
+    <div class="container">
+        <p class="float-right">
+            <a class="nav-link navbar-dark" href="#">Back to top</a>
+        </p>
+        <p>Pets Home is empowered by © <a href="https://getbootstrap.com/">Bootstrap</a> and © <a
+                    href="https://mdbootstrap.com/education/bootstrap/">MDBootstrap.com</a></p>
+        <p>Author: Nick A Edge, Qijia Zhang, Sicong Teng</p>
+    </div>
+</footer>
+<!--pet breed selection options-->
+<% for (const petType of petTypes){ %>
+    <div id="<%= petType.typeName %>" hidden>
+        <option value="" selected>Any breed</option>
+        <% for (const breed of petType.petBreed){ %>
+            <option value="<%= breed %>"><%= breed %></option>
+        <% } %>
+    </div>
+<% } %>
 
-</div>
 </body>
 </html>

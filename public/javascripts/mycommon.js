@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
 /**
  * form data to json
  * @param form jQuery object form
  */
 function formDataToJson(form) {
-    let formArr = form.serializeArray();
-    let json = {};
+    const formArr = form.serializeArray();
+    const json = {};
     for (const element of formArr) {
         json[element['name']] = element['value'];
     }
@@ -24,11 +24,11 @@ function sendAjaxJsonQuery(url, data) {
         data: JSON.stringify(data),
         type: 'POST',
         contentType: 'application/json',
-        success: function (result) {
+        success: function(result) {
             alert(JSON.stringify(result));
             return result;
         },
-        error: function (xhr, status, err) {
+        error: function(xhr, status, err) {
             alert(JSON.stringify(err));
             return err;
         },

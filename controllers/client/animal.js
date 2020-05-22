@@ -2,7 +2,7 @@
 const Animal = require('../../models/animal');
 const User = require('../../models/user');
 
-const create = function(req, res) {
+const create = (req, res) => {
     const data = req.body;
     User.findOne({name: data.ownerName})
         .exec()
@@ -16,13 +16,9 @@ const create = function(req, res) {
             });
             animal.save()
                 .then((doc) => {
-                    console.log('success----');
-                    console.log(doc);
                     res.status(200).json(doc);
                 })
                 .catch((err) => {
-                    console.log('error----');
-                    console.log(err);
                     res.status(500).json(err);
                 });
         })
@@ -30,20 +26,57 @@ const create = function(req, res) {
             return res.status(500).json('dont find owner');
         });
 };
+/**
+ * pagination search animals
+ * @param req
+ * @param res
+ */
+const list = (req, res) => {
+    const body = req.body;
+    for (const bodyKey in body) {
+        if (body[bodyKey] === '') {
+            delete body[bodyKey];
+        }
+    }
+    const query = Animal.find(body)
+        .select('-adopter -comment')
+        .sort({updateTime: -1})
+        .limit(9);
+    if (body.pageNum) {
+        query.skip((body.pageNum - 1) * 9);
+    }
+    query.exec()
+        .then((doc) => {
+            console.log(doc);
+            res.render('client/searchlist', {animals: doc});
+        }).catch((err) => {
+            console.error(err);
+            res.status(500).json({msg: 'search error'});
+        });
+};
 
-const list = function(req, res) {
+/**
+ * list latest 9 animals and add to req scope
+ * @param req request
+ * @param res response
+ * @param next next middleware
+ */
+const latestList = (req, res, next) => {
     Animal.find()
-        .populate('owner')
+        .sort({updateTime: -1})
+        .limit(9)
+        .select('-adopter -comment')
         .exec()
         .then((doc) => {
-            console.log('animal owner' + doc);
-            res.render('addAnimal', {animals: doc});
+            res.locals.animals = doc;
+            next();
         }).catch((err) => {
-            res.render(err);
+            next(err);
         });
 };
 
 module.exports = {
     create: create,
     list: list,
+    latestList: latestList,
 };
