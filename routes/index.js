@@ -13,6 +13,12 @@ router.get('/login', function(req, res, next) {
     res.render('login');
 });
 
+/* index page search button */
 router.post('/searchAnimals', Animal.list);
+
+/* sign up page route*/
+router.get('/signUp', (req, res) => {
+    res.render('client/signup');
+});
 
 module.exports = router;

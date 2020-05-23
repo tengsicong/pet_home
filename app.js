@@ -40,6 +40,12 @@ app.use(session({
     }),
 }));
 
+app.use(function(req, res, next) {
+    // get session from template
+    res.locals.user = req.session.user;
+    next();
+});
+
 app.use('/', indexRouter);
 app.use('/', authorizationRouter);
 app.use('/users', usersRouter);

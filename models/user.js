@@ -9,33 +9,43 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function(next) {
-    if (!this.duplicateName(this.email)) {
-        throw (new Error('duplicate name!'));
-    } else {
-        next();
-    }
+    this.duplicateEmail(this.email)
+        .then((doc) => {
+            if (doc) {
+                return next(new Error('this email has been registered'));
+            } else {
+                next();
+            }
+        }).catch((err) => {
+            return next(err);
+        });
 });
 
-userSchema.methods = {
+userSchema.virtual('name').get(
+    function() {
+        return this.firstname + this.surname;
+    },
+);
 
+userSchema.set('toObject', {getters: true, virtuals: true});
+
+userSchema.methods = {
     /**
      * whether username duplicate
      * @param email
      */
-    duplicateName: function(email) {
-        User.findOne({email: email})
-            .exec()
-            .then((doc) => {
-                console.log('user doc----' + doc);
-                if (doc.name === name) {
-                    return doc;
-                } else {
-                    return '';
-                }
-            })
-            .catch((err) => {
-                return err;
-            });
+    duplicateEmail: function(email) {
+        return new Promise((resolve, reject) => {
+            User.findOne({email: email})
+                .exec()
+                .then((doc) => {
+                    console.log('user doc----' + doc);
+                    resolve(doc);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
     },
 };
 

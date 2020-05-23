@@ -32,8 +32,7 @@ $(function() {
                 $('#animalContent').html(data);
             },
             error: function(xhr, status, err) {
-                alert(JSON.stringify(err));
-                return err;
+                alert('search error');
             },
         });
     });

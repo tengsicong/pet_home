@@ -46,9 +46,6 @@ animalSchema.virtual('age').get(
 animalSchema.virtual('intervalFromLastUpdate').get(function() {
     // eslint-disable-next-line no-invalid-this
     const updateTime = this.updateTime ? this.createTime : this.updateTime;
-    console.log('------');
-    console.log(updateTime);
-    console.log(new Date());
     const second = (new Date().getTime() - updateTime.getTime()) / 1000;
     const d = Math.floor(second / (3600 * 24));
     const h = Math.floor(second % (3600 * 24) / 3600);

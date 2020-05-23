@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/1f0b21f2-5ae6-4ea4-809f-11a9f64b6ff1/resourceGroups/Nodejs/providers/Microsoft.Web/sites/PetsHome",
+    "appService.deploySubpath": ""
 }
