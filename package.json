@@ -15,7 +15,8 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.9.14",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "config-lite": "^3.0.0",

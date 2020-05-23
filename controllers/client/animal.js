@@ -33,26 +33,21 @@ const create = (req, res) => {
  */
 const list = (req, res) => {
     const body = req.body;
+    // delete properties whose value is empty string
     for (const bodyKey in body) {
         if (body[bodyKey] === '') {
             delete body[bodyKey];
         }
     }
-    const query = Animal.find(body)
-        .select('-adopter -comment')
-        .sort({updateTime: -1})
-        .limit(9);
-    if (body.pageNum) {
-        query.skip((body.pageNum - 1) * 9);
-    }
-    query.exec()
-        .then((doc) => {
-            console.log(doc);
-            res.render('client/searchlist', {animals: doc});
-        }).catch((err) => {
-            console.error(err);
-            res.status(500).json({msg: 'search error'});
-        });
+    // don't select adopter and comments
+    const promise1 = Animal.pageBriefInfoList(body, req.query.pageNum);
+    promise1.then((doc) => {
+        console.log(doc.total);
+        res.render('client/searchlist', doc);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json({msg: 'search error'});
+    });
 };
 
 /**
@@ -62,21 +57,37 @@ const list = (req, res) => {
  * @param next next middleware
  */
 const latestList = (req, res, next) => {
-    Animal.find()
-        .sort({updateTime: -1})
-        .limit(9)
-        .select('-adopter -comment')
-        .exec()
+    Animal.pageBriefInfoList()
         .then((doc) => {
-            res.locals.animals = doc;
+            res.locals.animals = doc.animals;
+            res.locals.total = doc.animals;
+            res.locals.pageNum = doc.pageNum;
+            res.locals.totalPage = doc.totalPage;
             next();
         }).catch((err) => {
-            next(err);
-        });
+        next(err);
+    });
 };
 
+/**
+ * detail page
+ * @param req
+ * @param res
+ * @param next
+ */
+const detail = function(req, res, next) {
+    const animalId = req.params.id;
+    Animal.findOne({_id: animalId})
+        .exec()
+        .then((doc) => {
+            res.render('client/animal_detail', {animal: doc});
+        }).catch((err) => {
+        next(err);
+    });
+};
 module.exports = {
     create: create,
     list: list,
     latestList: latestList,
+    detail: detail,
 };

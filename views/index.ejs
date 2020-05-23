@@ -19,7 +19,7 @@
     <%- include('client/header') %>
 </header>
 <main>
-    <div class="container">
+    <div class="container mb-5">
         <!--search area-->
         <div class="row">
             <div class="col-lg-8 col-sm-12 mb-3">
@@ -65,15 +65,17 @@
             </div>
         </div>
         <!--./search area-->
-        <!--display content-->
-        <div class="row m-2">
-            <h4 class="display-4 font-italic">Latest Pets Info</h4>
+        <!--display title-->
+        <div class="row m-2" id="contentTitleDiv">
+            <h4 id="contentTitle" class="display-4 font-italic">Latest Pets Info</h4>
         </div>
-        <div class="row mb-5" id="animalContent">
+        <!--./display title-->
+        <!--display content-->
+        <div class="row animal">
             <% for( const animal of animals){ %>
                 <div class="col-lg-4 col-md-12 mb-4">
                     <!--Card-->
-                    <div class="card" data-detail="">
+                    <div class="card" onclick="openDetail(this)" data-href="/animal/detail/<%= animal._id %>">
                         <!--Card image-->
                         <div class="embed-responsive embed-responsive-3by2">
                             <img src="<%= animal.imgUrl[0] %>"
@@ -93,12 +95,39 @@
                     <!--/.Card-->
                 </div>
             <% } %>
+            <p class="pagination" data-pageNum="<%= pageNum %>" data-totalPage="<%= totalPage %>" hidden></p>
         </div>
         <!--display content-->
+        <div id="loadSpinner" class="row justify-content-center" style="display: none">
+            <div class="spinner-grow spinner-grow-sm text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-secondary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-success" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-info" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-dark" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 </main>
 
-<footer class="text-muted bg-indigo">
+<footer class="text-muted bg-indigo" id="footer">
     <%- include('client/footer') %>
 </footer>
 <!--pet breed selection options-->

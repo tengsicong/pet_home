@@ -64,6 +64,61 @@ animalSchema.virtual('intervalFromLastUpdate').get(function() {
 
 animalSchema.set('toObject', {getters: true, virtuals: true});
 
+
+animalSchema.statics.totalCount = function(findArgs) {
+    return new Promise((resolve, reject) => {
+        Animal.countDocuments(findArgs)
+            .then((count) => {
+                resolve(count);
+            })
+            .catch((err) => {
+                console.log(err);
+                reject(err);
+            });
+    });
+};
+animalSchema.statics.searchBriefList = function(findArgs, skipNum, pageSize) {
+    return new Promise((resolve, reject) => {
+        Animal.find(findArgs)
+            .select('-adopter -comment')
+            .sort({updateTime: -1})
+            .limit(pageSize)
+            .skip(skipNum)
+            .exec()
+            .then((doc) => {
+                resolve(doc);
+            })
+            .catch((err) => {
+                console.log(err);
+                reject(err);
+            });
+    });
+};
+animalSchema.statics.pageBriefInfoList =
+    function(findArgs = {},
+        pageNum = 1,
+        pageSize = 9) {
+        return new Promise((resolve, reject) => {
+            const skipNum = (pageNum - 1) * pageSize;
+            Promise.all([
+                Animal.searchBriefList(findArgs, skipNum, pageSize),
+                Animal.totalCount(findArgs),
+            ])
+                .then((result) => {
+                    resolve({
+                        animals: result[0],
+                        pageNum: pageNum,
+                        pageSize: pageSize,
+                        total: result[1],
+                        totalPage: Math.ceil(result[1] / pageSize),
+                    });
+                }).catch((err) => {
+                console.log(err);
+                reject(err);
+            });
+        });
+    };
+
 const Animal = mongoose.model('animals', animalSchema);
 
 module.exports = Animal;

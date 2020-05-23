@@ -42,9 +42,8 @@ function signUp(req, res) {
     const user = new User(json);
     user.save()
         .then((doc) => {
-            req.session.userId = doc._id;
-            req.session.name = doc.name;
-            req.session.role = 'user';
+            doc.password = '';
+            req.session.user = doc;
             req.session.save();
             res.json({message: 'Sign up success'});
         }).catch((err) => {

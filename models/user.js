@@ -17,8 +17,8 @@ userSchema.pre('save', function(next) {
                 next();
             }
         }).catch((err) => {
-            return next(err);
-        });
+        return next(err);
+    });
 });
 
 userSchema.virtual('name').get(
@@ -29,24 +29,21 @@ userSchema.virtual('name').get(
 
 userSchema.set('toObject', {getters: true, virtuals: true});
 
-userSchema.methods = {
-    /**
-     * whether username duplicate
-     * @param email
-     */
-    duplicateEmail: function(email) {
-        return new Promise((resolve, reject) => {
-            User.findOne({email: email})
-                .exec()
-                .then((doc) => {
-                    console.log('user doc----' + doc);
-                    resolve(doc);
-                })
-                .catch((err) => {
-                    reject(err);
-                });
-        });
-    },
+/**
+ * whether username duplicate
+ * @param email
+ */
+userSchema.methods.duplicateEmail = function(email) {
+    return new Promise((resolve, reject) => {
+        User.findOne({email: email})
+            .exec()
+            .then((doc) => {
+                resolve(doc);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
 };
 
 const User = mongoose.model('users', userSchema);
