@@ -27,6 +27,7 @@ const animalSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['Waiting', 'Adopted'],
+        default: 'Waiting',
     },
     comment: [commentSchema],
 });

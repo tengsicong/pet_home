@@ -5,7 +5,6 @@
 function updateSubSelector(ele) {
     const petTypeName = ele.value;
     // petTypeName is null, clear second selection
-    console.log(petTypeName);
     if (!petTypeName) {
         $('#petBreed').html('<option value="" selected>Any breed</option>');
     } else {
@@ -34,7 +33,8 @@ $(function() {
     $('#submit').click(function() {
         event.preventDefault();
         const json = formDataToJson($('#searchForm'));
-        console.log(json);
+        // add one criterion, only search waiting pets
+        json['status'] = 'Waiting';
         $.ajax({
             url: '/searchAnimals',
             data: JSON.stringify(json),
@@ -72,15 +72,12 @@ $(function() {
         const documentHeight = $(document).height();
         const windowHeight = $window.height();
         const loadThreshold = documentHeight - windowHeight - footerHeight;
-        console.log('---scrollTop' + scrollTop);
-        console.log('---documentH' + documentHeight);
-        console.log('---windowH' + windowHeight);
-        console.log('threshold' + footerHeight);
-        console.log('---subtract' + loadThreshold);
         if ((scrollTop > loadThreshold) && loadMore) {
             loadMore = false;
             // get form data
             const json = formDataToJson($('#searchForm'));
+            // add one criterion, only search waiting pets
+            json['status'] = 'Waiting';
             // get current page
             const $pageInfo = $('p.pagination:last');
             const currentPage = Number.parseInt($pageInfo.attr('data-pageNum'));
@@ -116,4 +113,5 @@ $(function() {
             });
         }
     });
+
 });
