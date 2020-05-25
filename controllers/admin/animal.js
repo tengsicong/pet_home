@@ -1,8 +1,6 @@
 'use strict';
 const Animal = require('../../models/animal');
 const PetType = require('../../models/pettype');
-const User = require('../../models/user');
-const Admin = require('../../models/admin');
 const mongoose = require('mongoose');
 
 // temp attribute
@@ -60,10 +58,19 @@ const getAnimalDetail = function(req, res) {
 };
 
 const loadAddNew = function(req, res) {
-    res.render('admin/add_new_animal', {
-        pageTitle: 'Add new animal',
-        adminName: req.session.name,
-    });
+    PetType
+        .find()
+        .exec()
+        .then((doc) =>{
+            res.render('admin/add_new_animal', {
+                pageTitle: 'Add new animal',
+                adminName: req.session.name,
+                petTypes: doc,
+            });
+        })
+        .catch((err) =>{
+            console.log(err)
+        });
 };
 
 const createNew = function(req, res) {
@@ -86,7 +93,7 @@ const createNew = function(req, res) {
         postcode: data.postcode,
         detail: data.detail,
         status: 'Waiting',
-        imgUrl: path.substring(6),
+        imgUrl: path.substring(9),
     });
     animal.save(function(err, result) {
         if (err) {

@@ -8,7 +8,7 @@ function updateSubSelector(ele) {
     // if (!petTypeName) {
     //     $('#petBreed').html('<option value="" selected>Any breed</option>');
     // } else {
-        const dataDiv = document.getElementById(petTypeName);
-        $('#petBreed').html(dataDiv.innerHTML);
+    const dataDiv = document.getElementById(petTypeName);
+    $('#petBreed').html(dataDiv.innerHTML);
     // }
 }
