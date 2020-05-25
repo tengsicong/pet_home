@@ -20,7 +20,7 @@ function sendAjaxQuery(url, data) {
 function addNewAnimal() {
     event.preventDefault();
     event.stopImmediatePropagation();
-    var myForm = document.getElementById('addNewAnimal');
+    var myForm = document.getElementById('xForm');
     var formData = new FormData(myForm);
     console.log(formData);
     sendAjaxQuery('/admin/create', formData);

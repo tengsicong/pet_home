@@ -20,7 +20,7 @@
     <!--        <p><input type="submit" name="g" value="Submit" id="g"></p>-->
     <!--    </form>-->
     <!--    <div id="results" style="margin-top:30px"></div>-->
-    <form id="addNewAnimal" onsubmit="addNewAnimal()" enctype="multipart/form-data" method="post">
+    <form id="xForm" onsubmit="addNewAnimal()" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <label for="name">Name:</label>
             <input id="name" class="form-control" name="name" type="text" required="required" />
@@ -34,24 +34,20 @@
             <input id="dob" class="form-control" name="dob" type="date" required="required">
         </div>
         <div class="form-group">
-            <label for="petType">Pet Type:</label>
-            <select id="petType" class="form-control" name="petType">
-                <option value="Birds" selected>Birds</option>
-                <option value="Cats">Cats</option>
-                <option value="Dogs">Dogs</option>
-                <option value="Fish">Fish</option>
-                <option value="Horses">Horses</option>
-                <option value="Poultry">Poultry</option>
-                <option value="Rabbits">Rabbits</option>
-                <option value="Reptiles">Reptiles</option>
-                <option value="Rodents">Rodents</option>
+            <label for="petType">Pets Type:</label>
+            <select name="petType" id="petType" class="form-control" updateSubSelector(this), onchange="updateSubSelector(this)">
+                <!--                <option value="" selected>Any type</option>-->
+                <% for (const petType of petTypes){ %>
+                    <option value="<%= petType.typeName %>"><%= petType.typeName %></option>
+                <% } %>
             </select>
         </div>
         <div class="form-group">
-            <label for="petBreed">Pet Type:</label>
-            <select id="petBreed" class="form-control" name="petBreed">
-                <option value="Labrador" selected>Labrador</option>
-                <option value="Bulldog">Bulldog</option>
+            <label for="petBreed">Pets Breed</label>
+            <select name="petBreed" id="petBreed" class="form-control">
+                <% for (const breed of petTypes[0].petBreed){ %>
+                    <option value="<%= breed %>"><%= breed %></option>
+                <% } %>
             </select>
         </div>
         <div class="form-group">
@@ -90,4 +86,15 @@
 <br>
 
 </body>
+
+<!--pet breed selection options-->
+<% for (const petType of petTypes){ %>
+    <div id="<%= petType.typeName %>" hidden>
+        <!--        <option value="" selected>Any breed</option>-->
+        <% for (const breed of petType.petBreed){ %>
+            <option value="<%= breed %>"><%= breed %></option>
+        <% } %>
+    </div>
+<% } %>
+
 </html>
