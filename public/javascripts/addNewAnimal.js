@@ -26,4 +26,3 @@ function addNewAnimal() {
     sendAjaxQuery('/admin/create', formData);
     return false;
 }
-

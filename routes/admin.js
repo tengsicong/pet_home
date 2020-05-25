@@ -68,7 +68,7 @@ router.get('/add_new_animal', checkAdminLogin, function(req, res) {
     animal.loadAddNew(req, res);
 });
 
-router.post('/create', checkAdminLogin, upload.single('animalImage'), function(req, res) {
+router.post('/create',checkAdminLogin, upload.single('animalImage'), function(req, res) {
     // console.log(req.body);
     // console.log(req.file.path);
     animal.createNew(req, res);
