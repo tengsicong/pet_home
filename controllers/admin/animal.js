@@ -77,6 +77,8 @@ const createNew = function(req, res) {
     console.log('enter controller');
     const data = req.body;
     const path = req.file.path;
+    const pathArray  = path.split('/');
+    const relativePath = '/' + pathArray[(pathArray.length - 2)] + '/' + pathArray[(pathArray.length - 1)]
     console.log('load');
     console.log(data);
     console.log(path);
@@ -93,7 +95,7 @@ const createNew = function(req, res) {
         postcode: data.postcode,
         detail: data.detail,
         status: 'Waiting',
-        imgUrl: path.substring(9),
+        imgUrl: relativePath,
     });
     animal.save(function(err, result) {
         if (err) {
