@@ -5,7 +5,7 @@ const checkIsAdminLogin = require('../middlewares/check').checkIsAdminLogin;
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', checkIsAdminLogin, Animal.latestList, PetType.allTypes, (req, res, next) => {
+router.get('/', checkIsAdminLogin, Animal.latestList, PetType.allTypes, (req, res) => {
     res.render('index');
 });
 
