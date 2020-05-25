@@ -79,8 +79,9 @@ const createNew = function(req, res) {
     let pathArray;
     if (osType == 'Darwin' || osType == 'Linux') {
         pathArray  = path.split('/');
-    } else if (osType == 'Windows_NT') {
-        pathArray = path.split('\\\\');
+
+    } else if (osType === 'Windows_NT') {
+        pathArray = path.split('\\');
     }
     const relativePath = '/' + pathArray[(pathArray.length - 2)] + '/' + pathArray[(pathArray.length - 1)];
     console.log('load');
@@ -111,19 +112,17 @@ const createNew = function(req, res) {
 }
 
 const addComment = function(req, res) {
-    const id = req.query.id;
-    const comment = req.body.comment;
-    const name = req.session.name;
-    const date = new Date();
     Animal
-        .findOneAndUpdate({_id: id}, {$push: {comment: {name: name, comment: comment, date: date}}})
-        .then(function(result) {
-            res.redirect('/admin/pet_detail?id=' + id);
-        }).catch((err) => {
-            console.log(err);
-        });
-}
+        .findOneAndUpdate({})
 
+    animal.save(function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(animal));
+    });
+}
 
 module.exports = {
     getWaitingList: getWaitingList,
