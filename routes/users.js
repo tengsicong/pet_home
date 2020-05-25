@@ -9,6 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/signUp', User.signUp);
 
-router.post('/logout', User.logout);
+router.get('/logout', User.logout);
 
 module.exports = router;

@@ -63,11 +63,11 @@ function validateEmail(email) {
 }
 
 function logout(req, res) {
-    req.session.destory((err) => {
+    req.session.destroy((err) => {
         if (err) {
             console.error(err);
         }
-        res.render('/');
+        res.redirect('/');
     });
 }
 
