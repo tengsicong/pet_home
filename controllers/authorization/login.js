@@ -79,7 +79,5 @@ const login = function(req, res) {
 };
 
 module.exports = {
-    // userLogin: userLogin,
-    // adminLogin: adminLogin,
     login: login,
 };
