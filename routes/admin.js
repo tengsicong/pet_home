@@ -42,6 +42,10 @@ router.get('/pet_detail', checkAdminLogin, function(req, res) {
     animal.getAnimalDetail(req, res);
 })
 
+router.post('/pet_comments', checkAdminLogin, function(req, res) {
+    animal
+})
+
 router.get('/application_list_pending', checkAdminLogin, function(req, res) {
     apply.getAllPending(req, res);
 });

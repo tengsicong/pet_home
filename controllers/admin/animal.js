@@ -2,9 +2,8 @@
 const Animal = require('../../models/animal');
 const PetType = require('../../models/pettype');
 const mongoose = require('mongoose');
-
-// temp attribute
-// const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
+const os = require('os');
+const osType = os.type();
 
 const getWaitingList = function(req, res) {
     Animal
@@ -77,8 +76,14 @@ const createNew = function(req, res) {
     console.log('enter controller');
     const data = req.body;
     const path = req.file.path;
-    const pathArray  = path.split('/');
-    const relativePath = '/' + pathArray[(pathArray.length - 2)] + '/' + pathArray[(pathArray.length - 1)]
+    let pathArray;
+    if (osType == "Darwin") {
+        pathArray  = path.split('/');
+
+    } else if (osType == 'Windows_NT') {
+        pathArray = path.split('\\\\');
+    }
+    const relativePath = '/' + pathArray[(pathArray.length - 2)] + '/' + pathArray[(pathArray.length - 1)];
     console.log('load');
     console.log(data);
     console.log(path);
@@ -106,11 +111,25 @@ const createNew = function(req, res) {
     });
 }
 
+const addComment = function(req, res) {
+    Animal
+        .findOneAndUpdate({})
+
+    animal.save(function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(animal));
+    });
+}
+
 module.exports = {
     getWaitingList: getWaitingList,
     getAnimalDetail: getAnimalDetail,
     getAdoptedList: getAdoptedList,
     loadAddNew: loadAddNew,
     createNew: createNew,
+    addComment: addComment,
 };
 
