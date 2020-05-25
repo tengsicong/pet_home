@@ -62,7 +62,7 @@ const login = function(req, res) {
     checkInformation.then(function(result) {
         const person = result;
         if (person != null && password == person.password) {
-            req.session.userId = person.password;
+            req.session.userId = person.password
             req.session.name = person.name;
             req.session.role = role;
             person.password = '';

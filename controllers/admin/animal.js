@@ -1,5 +1,6 @@
 'use strict';
 const Animal = require('../../models/animal');
+const PetType = require('../../models/pettype');
 const User = require('../../models/user');
 const Admin = require('../../models/admin');
 const mongoose = require('mongoose');
@@ -63,7 +64,7 @@ const loadAddNew = function(req, res) {
         pageTitle: 'Add new animal',
         adminName: req.session.name,
     });
-}
+};
 
 const createNew = function(req, res) {
     console.log('enter controller');

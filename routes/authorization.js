@@ -10,13 +10,13 @@ const checkIsLogin = require('../middlewares/check').checkIsLogin;
 // router.post('/admin_login', function(req, res) {
 //     login.adminLogin(req, res);
 // });
+
 /* GET login page. */
 router.get('/login',checkIsLogin, function(req, res, next) {
     res.render('login');
 });
 
 router.post('/login', function(req, res) {
-    // console.log(req.body);
     login.login(req, res);
 })
 
