@@ -39,6 +39,10 @@ const list = (req, res) => {
             delete body[bodyKey];
         }
     }
+    const name = body['name']
+    if (name) {
+        body['name'] = new RegExp(name);
+    }
     // don't select adopter and comments
     const promise1 = Animal.pageBriefInfoList(body, req.query.pageNum);
     promise1.then((doc) => {
