@@ -57,9 +57,9 @@ const login = function(req, res) {
     checkInformation.then(function(result) {
         const person = result;
         if (person != null && password == person.password) {
-            req.session.userId = person._id;
-            req.session.name = person.name;
             req.session.role = role;
+            person.password = '';
+            req.session.user = person;
             req.session.save(function(result) {
                 res.setHeader('Content-Type', 'application/json');
                 res.send(JSON.stringify(req.session));
@@ -69,10 +69,10 @@ const login = function(req, res) {
             res.send(JSON.stringify(req.session));
         }
     });
-}
+};
 
 module.exports = {
     userLogin: userLogin,
     adminLogin: adminLogin,
     login: login,
-}
+};

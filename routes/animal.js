@@ -7,4 +7,6 @@ router.get('/view', animal.list);
 
 router.post('/add', animal.create);
 
+router.get('/detail/:id', animal.detail);
+
 module.exports = router;

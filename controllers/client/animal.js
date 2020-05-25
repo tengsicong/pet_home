@@ -2,7 +2,7 @@
 const Animal = require('../../models/animal');
 const User = require('../../models/user');
 
-const create = function(req, res) {
+const create = (req, res) => {
     const data = req.body;
     User.findOne({name: data.ownerName})
         .exec()
@@ -16,13 +16,9 @@ const create = function(req, res) {
             });
             animal.save()
                 .then((doc) => {
-                    console.log('success----');
-                    console.log(doc);
                     res.status(200).json(doc);
                 })
                 .catch((err) => {
-                    console.log('error----');
-                    console.log(err);
                     res.status(500).json(err);
                 });
         })
@@ -30,20 +26,68 @@ const create = function(req, res) {
             return res.status(500).json('dont find owner');
         });
 };
-
-const list = function(req, res) {
-    Animal.find()
-        .populate('owner')
-        .exec()
-        .then((doc) => {
-            console.log('animal owner' + doc);
-            res.render('addAnimal', {animals: doc});
-        }).catch((err) => {
-            res.render(err);
-        });
+/**
+ * pagination search animals
+ * @param req
+ * @param res
+ */
+const list = (req, res) => {
+    const body = req.body;
+    // delete properties whose value is empty string
+    for (const bodyKey in body) {
+        if (body[bodyKey] === '') {
+            delete body[bodyKey];
+        }
+    }
+    // don't select adopter and comments
+    const promise1 = Animal.pageBriefInfoList(body, req.query.pageNum);
+    promise1.then((doc) => {
+        console.log(doc.total);
+        res.render('client/searchlist', doc);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json({msg: 'search error'});
+    });
 };
 
+/**
+ * list latest 9 animals and add to req scope
+ * @param req request
+ * @param res response
+ * @param next next middleware
+ */
+const latestList = (req, res, next) => {
+    Animal.pageBriefInfoList()
+        .then((doc) => {
+            res.locals.animals = doc.animals;
+            res.locals.total = doc.animals;
+            res.locals.pageNum = doc.pageNum;
+            res.locals.totalPage = doc.totalPage;
+            next();
+        }).catch((err) => {
+        next(err);
+    });
+};
+
+/**
+ * detail page
+ * @param req
+ * @param res
+ * @param next
+ */
+const detail = function(req, res, next) {
+    const animalId = req.params.id;
+    Animal.findOne({_id: animalId})
+        .exec()
+        .then((doc) => {
+            res.render('client/animal_detail', {animal: doc});
+        }).catch((err) => {
+        next(err);
+    });
+};
 module.exports = {
     create: create,
     list: list,
+    latestList: latestList,
+    detail: detail,
 };
