@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="/javascripts/mycommon.js"></script>
     <script src="/javascripts/index_page.js"></script>
+    <script src="public/javascripts/animal_detail.js"></script>
 </head>
 <body>
 <header class="mb-5">
@@ -29,9 +30,11 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div id="adopt" class="float-right">
-                        <button class="btn applyAdopt">Adopt</button>
-                    </div>
+                    <% if (user) { %>
+                        <div id="adopt" class="float-right">
+                            <button class="btn">Adopt</button>
+                        </div>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -41,7 +44,7 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="https://placehold.it/800x400?text=IMAGE" alt="Image">
+                            <img src="https://placehold.it/800x400?text=NO-IMAGE" alt="Image">
                         </div>
                     </div>
                 </div>
@@ -53,10 +56,31 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><b>Date of birth:</b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
-                            <li class="list-group-item"><b>Pet type:</b><%= " " + animal.petType %></li>
-                            <li class="list-group-item"><b>Pet breed:</b><%= " " + animal.petBreed %></li>
-                            <li class="list-group-item"><b>Contact Number:</b><%= " " + animal.telephone %></li>
+                            <% if (animal.status.toLowerCase() == "waiting") {  %>
+                                <li class="list-group-item"><b>Status: </b><span class="badge badge-success">Available</span></li>
+                            <% } else {  %>
+                                    <li class="list-group-item"><b>Status: </b><span class="badge badge-warning">Unavailable</span></li>
+                            <% } %>
+                            <% if (animal.dob == "undefined") {  %>
+                                <li class="list-group-item"><b>Date of birth: </b> DOB Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Date of birth: </b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
+                            <% } %>
+                            <% if (animal.petType == "undefined") {  %>
+                                <li class="list-group-item"><b>Pet Type: </b> Pet Type Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Pet Type: </b><%= " " + animal.petType %></li>
+                            <% } %>
+                            <% if (animal.petBreed == "undefined") {  %>
+                                <li class="list-group-item"><b>Pet Breed: </b> Pet Breed Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Pet Breed: </b><%= " " + animal.petBreed %></li>
+                            <% } %>
+                            <% if (animal.telephone == "undefined") {  %>
+                                <li class="list-group-item"><b>Contact Number: </b> Contact Num Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Contact Number: </b><%= " " + animal.telephone %></li>
+                            <% } %>
                         </ul>
                     </div>
                 </div><!-- /.card-container -->
@@ -70,7 +94,11 @@
                     </div>
                     <div class="card-body">
                         <div class="animalDetails">
-                            <% animal.detail %>
+                            <% if (animal.detail == "undefined") {  %>
+                                <h3>Details Unknown, or no details given</h3>
+                            <% } else {  %>
+                                <%= animal.detail %>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -82,10 +110,26 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><b>Post code:</b><%= " " + animal.postcode %></li>
-                            <li class="list-group-item"><b>Street:</b><%= " " + animal.street %></li>
-                            <li class="list-group-item"><b>Town:</b><%= " " + animal.town %></li>
-                            <li class="list-group-item"><b>Country:</b><%= " " + animal.country %></li>
+                            <% if (animal.postcode == "undefined") {  %>
+                                <li class="list-group-item"><b>Post Code: </b> Post Code Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Post Code: </b><%= " " + animal.postcode %></li>
+                            <% } %>
+                            <% if (animal.street == "undefined") {  %>
+                                <li class="list-group-item"><b>Street : </b> Street Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Street: </b><%= " " + animal.street %></li>
+                            <% } %>
+                            <% if (animal.town == "undefined") {  %>
+                                <li class="list-group-item"><b>Town : </b> Town Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Town: </b><%= " " + animal.town %></li>
+                            <% } %>
+                            <% if (animal.country == "undefined") {  %>
+                                <li class="list-group-item"><b>Country: </b> Country Unknown</li>
+                            <% } else {  %>
+                                <li class="list-group-item"><b>Country: </b><%= " " + animal.country %></li>
+                            <% } %>
                         </ul>
                     </div>
                 </div><!-- /.card-container -->
@@ -102,53 +146,57 @@
                         <% if (animal.comment.length == 0) { %>
                             <div class="alert alert-warning" role="alert">No comments yet! Be the first to comment.</div>
                         <% } else { %>
-                            <table class="table table-striped">
+                            <table class="table table-striped commentTable">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>User Name</th>
-                                    <th>Comment</th>
-                                    <th>Time</th>
-                                </tr>
+                                    <tr>
+                                        <th class="commentID">#</th>
+                                        <th class="userName">User Name</th>
+                                        <th class="commentCont">Comment</th>
+                                        <th class="postTime">Time</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <% let j = 1; %>
-                                <% for (let i = 0 ; i < animal.comment.length; i++) { %>
+                                <% for (let index = 0 ; index < animal.comment.length; index++) { %>
                                     <tr>
-                                        <td><%= j %></td>
-                                        <td><%= animal.comment[i].name %></td>
-                                        <td><%= animal.comment[i].comment %></td>
-                                        <td><%= animal.comment[i].date.toISOString().replace(/T.*/,' ') + animal.comment[i].date.toLocaleTimeString().replace(/ G.*/,"") %></td>
+                                        <td class="commentID"><%= index + 1 %></td>
+                                        <td class="userName"><%= animal.comment[index].name %></td>
+                                        <td class="commentCont"><%= animal.comment[index].comment %></td>
+                                        <td class="postTime"><%= animal.comment[index].date.toISOString().replace(/T.*/,' ') +
+                                                                 animal.comment[index].date.toLocaleTimeString().replace(/ G.*/,"") %></td>
                                     </tr>
                                 <% } %>
                                 </tbody>
                             </table>
                         <% } %>
                     </div>
-                    <div class="col">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="comment" class="col-sm-2 control-label">Make a comment</label>
-                                <div class="col">
-                                    <textarea rows="6" class="form-control form-control" id="comment"></textarea>
+                    <% if (user) { %>
+                        <div class="col">
+                            <div class="commentBox">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="comment" class="col-sm-2 control-label">Make a comment</label>
+                                        <div class="col">
+                                            <textarea rows="6" class="form-control form-control" id="comment"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="text-center">
+                                    <button class="btn">Submit</button>
                                 </div>
                             </div>
-                        </form>
-                        <div style="text-align: center">
-                            <button class="btn btn-primary">Submit</button>
                         </div>
-                    </div>
+                    <% } %>
                 </div>
             </div><!-- /.card-container -->
         </div>
     </div>
 </div>
 <!--modal for group Eval-->
-<div class="modal fade" id="modal-lg-groupEval">
+<div class="modal fade" id="modal-lg-applyForAdopt">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Group Eval Form</h4>
+                <h4 class="modal-title">Pet Adoption Application</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -159,28 +207,51 @@
                 <br>
                 <form id="groupEval">
                     <div class="form-group">
-                        <label>You</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="forename">Forename: </label>
+                        <input name="forename" type="text" id="forename" class="form-control" required datatype="text" min="0" max="20">
                     </div>
                     <div class="form-group">
-                        <label>Group Member #2</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="surname">Surname: </label>
+                        <input name="surname" type="text" id="surname" class="form-control" required datatype="text" min="0" max="20">
                     </div>
                     <div class="form-group">
-                        <label>Group Member #3</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="email">Email: </label>
+                        <input name="email" type="email" id="email" class="form-control" required datatype="text" min="0" max="30">
                     </div>
                     <div class="form-group">
-                        <label>Group Member #4</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="telephone">Telephone Number: </label>
+                        <input name="telephone" type="tel" id="telephone" class="form-control" required datatype="number" min="0" max="10">
                     </div>
                     <div class="form-group">
-                        <label>Group Member #5</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="street">Street: </label>
+                        <input name="street" type="text" id="street" class="form-control" required datatype="text" min="0" max="40">
                     </div>
                     <div class="form-group">
-                        <label>Group Member #6</label>
-                        <input type="number" min="0" max="100" class="form-control">
+                        <label for="town">Town: </label>
+                        <input name="town" type="text" id="town" class="form-control" required datatype="text" min="0" max="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="postcode">Postcode: </label>
+                        <input name="postcode" type="text" id="postcode" class="form-control" required datatype="text" min="0" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country: </label>
+                        <input name="country" type="text" id="country" class="form-control" required datatype="text" min="0" max="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="family">Family Members: </label>
+                        <input name="country" type="text" id="country" class="form-control" required datatype="text" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="ownAnimals">Do you currently own animals? </label>
+                        <input type="radio" id="yes" name="yes" value="yes">
+                        <label for="yes">Yes</label><br>
+                        <input type="radio" id="no" name="no" value="no">
+                        <label for="no">31 - 60</label><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason for adoption: </label>
+                        <textarea name="reason" rows="6" id="reason"></textarea>
                     </div>
                 </form>
             </div>
@@ -191,29 +262,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-    <!--<div class="info">
-        <label for="example">Enter Text
-        </label>
-        <input id="example" type="text"
-               name="Ntext" size="20">
-        <input id="sent" type="submit"
-               value="Send">
-    </div>
-    <p id="para">
-    </p>
-    <script>
-        window.onclick = function(e)
-        {   var id =  e.target.id;
-            if (id === 'sent')
-            { var txt = document.getElementById('example').value
-                $( "#para" ).append( txt );
-            }
-        }
-    </script>-->
 </main>
-
 <footer class="text-muted bg-indigo" id="footer">
     <%- include('footer') %>
 </footer>

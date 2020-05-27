@@ -109,7 +109,7 @@ const createNew = function(req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(animal));
     });
-}
+};
 
 const addComment = function(req, res) {
     Animal
@@ -122,7 +122,7 @@ const addComment = function(req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(animal));
     });
-}
+};
 
 module.exports = {
     getWaitingList: getWaitingList,

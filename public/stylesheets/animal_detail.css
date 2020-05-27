@@ -1,0 +1,95 @@
+#animalName label {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.animalHeader {
+    display: flex;
+    align-items: flex-end;
+}
+
+#animalName {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#adopt .btn, .commentBox button {
+    max-width: 150px;
+    max-height: 60px;
+    text-transform: none;
+    color: white;
+    background-color: rgba(63, 81, 181, 0.9);
+}
+
+#adopt .btn:hover, .commentBox button:hover {
+    background-color: rgba(63, 81, 181, 1);
+    color: white;
+}
+
+.details .card {
+    height: 100%;
+    max-width: 100%;
+    min-width: max-content;
+}
+
+.details .list-group {
+    min-width: max-content;
+    height: 100%;
+}
+
+.detail .table {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.card-header {
+    background-color: rgba(63, 81, 181, 0.9);
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.commentBox textarea {
+    resize: none;
+}
+
+.commentTable tr {
+    height: 100px;
+}
+
+.commentTable thead tr {
+    height: 40px;
+}
+
+#myCarousel img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+.commentBox button {
+    text-align: center;
+}
+
+.commentBox label {
+    min-width: max-content;
+    font-weight: bold;
+}
+
+.commentID {
+    width: 10%;
+}
+
+.userName {
+    width: 20%;
+}
+
+.commentCont {
+    width: 50%;
+}
+
+.postTime {
+    width: 20%;
+}
+
