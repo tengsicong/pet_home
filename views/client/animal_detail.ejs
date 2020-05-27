@@ -21,7 +21,7 @@
 </header>
 <main>
     <div class="container details">
-        <div class="row">
+        <div class="row mb-2">
             <div class="container animalHeader">
                 <div class="col">
                     <div id="animalName">
@@ -53,11 +53,10 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item"><b>Data of birth:</b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
+                            <li class="list-group-item"><b>Date of birth:</b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
                             <li class="list-group-item"><b>Pet type:</b><%= " " + animal.petType %></li>
                             <li class="list-group-item"><b>Pet breed:</b><%= " " + animal.petBreed %></li>
-                            <li class="list-group-item"><b>Owner before:</b><%= " " + animal.owner %></li>
-                            <li class="list-group-item"><b>Owner Telephone:</b><%= " " + animal.telephone %></li>
+                            <li class="list-group-item"><b>Contact Number:</b><%= " " + animal.telephone %></li>
                         </ul>
                     </div>
                 </div><!-- /.card-container -->
@@ -71,7 +70,7 @@
                     </div>
                     <div class="card-body">
                         <div class="animalDetails">
-                            <p><% animal.detail %></p>
+                            <% animal.detail %>
                         </div>
                     </div>
                 </div>
@@ -101,7 +100,7 @@
                 <div class="card-body">
                     <div class="comment">
                         <% if (animal.comment.length == 0) { %>
-                            <div class="alert alert-warning" role="alert">No comment yet!</div>
+                            <div class="alert alert-warning" role="alert">No comments yet! Be the first to comment.</div>
                         <% } else { %>
                             <table class="table table-striped">
                                 <thead>
@@ -125,6 +124,19 @@
                                 </tbody>
                             </table>
                         <% } %>
+                    </div>
+                    <div class="col">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="comment" class="col-sm-2 control-label">Make a comment</label>
+                                <div class="col">
+                                    <textarea rows="6" class="form-control form-control" id="comment"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <div style="text-align: center">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div><!-- /.card-container -->
