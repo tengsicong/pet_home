@@ -18,6 +18,7 @@ module.exports = {
     }
 };
 
+// eslint-disable-next-line require-jsdoc
 function checkRoleLogin(role, req, res, next) {
     if (req.session.role !== role) {
         return res.redirect('/login');

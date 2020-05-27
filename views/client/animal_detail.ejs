@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Animal Detail</title>
+    <title>Animal Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/common.css">
     <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/animal_detail.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -19,9 +20,186 @@
     <%- include('header') %>
 </header>
 <main>
-    <div>
-        <p><%= animal %></p>
+    <div class="container details">
+        <div class="row">
+            <div class="container animalHeader">
+                <div class="col">
+                    <div id="animalName">
+                        <label><%= animal.name %></label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="adopt" class="float-right">
+                        <button class="btn applyAdopt">Adopt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 mb-5">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="https://placehold.it/800x400?text=IMAGE" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 mb-2 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Animal Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>Data of birth:</b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
+                            <li class="list-group-item"><b>Pet type:</b><%= " " + animal.petType %></li>
+                            <li class="list-group-item"><b>Pet breed:</b><%= " " + animal.petBreed %></li>
+                            <li class="list-group-item"><b>Owner before:</b><%= " " + animal.owner %></li>
+                            <li class="list-group-item"><b>Owner Telephone:</b><%= " " + animal.telephone %></li>
+                        </ul>
+                    </div>
+                </div><!-- /.card-container -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Animal Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="animalDetails">
+                            <p><% animal.detail %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Animal Location</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>Post code:</b><%= " " + animal.postcode %></li>
+                            <li class="list-group-item"><b>Street:</b><%= " " + animal.street %></li>
+                            <li class="list-group-item"><b>Town:</b><%= " " + animal.town %></li>
+                            <li class="list-group-item"><b>Country:</b><%= " " + animal.country %></li>
+                        </ul>
+                    </div>
+                </div><!-- /.card-container -->
+            </div><!-- /.col-sm-4 -->
+        </div>
+    <div class="row mb-5">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Comments</h3>
+                </div>
+                <div class="card-body">
+                    <div class="comment">
+                        <% if (animal.comment.length == 0) { %>
+                            <div class="alert alert-warning" role="alert">No comment yet!</div>
+                        <% } else { %>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>User Name</th>
+                                    <th>Comment</th>
+                                    <th>Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% let j = 1; %>
+                                <% for (let i = 0 ; i < animal.comment.length; i++) { %>
+                                    <tr>
+                                        <td><%= j %></td>
+                                        <td><%= animal.comment[i].name %></td>
+                                        <td><%= animal.comment[i].comment %></td>
+                                        <td><%= animal.comment[i].date.toISOString().replace(/T.*/,' ') + animal.comment[i].date.toLocaleTimeString().replace(/ G.*/,"") %></td>
+                                    </tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        <% } %>
+                    </div>
+                </div>
+            </div><!-- /.card-container -->
+        </div>
     </div>
+</div>
+<!--modal for group Eval-->
+<div class="modal fade" id="modal-lg-groupEval">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Group Eval Form</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <br><span class="prompt_message"></span>
+                <br>
+                <br>
+                <form id="groupEval">
+                    <div class="form-group">
+                        <label>You</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Member #2</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Member #3</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Member #4</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Member #5</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Group Member #6</label>
+                        <input type="number" min="0" max="100" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+    <!--<div class="info">
+        <label for="example">Enter Text
+        </label>
+        <input id="example" type="text"
+               name="Ntext" size="20">
+        <input id="sent" type="submit"
+               value="Send">
+    </div>
+    <p id="para">
+    </p>
+    <script>
+        window.onclick = function(e)
+        {   var id =  e.target.id;
+            if (id === 'sent')
+            { var txt = document.getElementById('example').value
+                $( "#para" ).append( txt );
+            }
+        }
+    </script>-->
 </main>
 
 <footer class="text-muted bg-indigo" id="footer">

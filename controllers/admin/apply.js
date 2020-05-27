@@ -1,6 +1,7 @@
 'use strict';
 const Apply = require('../../models/apply');
 const Animal = require('../../models/animal');
+// eslint-disable-next-line no-unused-vars
 const mongoose = require('mongoose');
 
 // temp attribute
@@ -13,10 +14,9 @@ const getAllPending = function(req, res) {
         .populate('animal')
         .exec()
         .then((result) => {
-            const applications = result;
             res.render('admin/application_list_pending', {
                 pageTitle: 'applications',
-                applications: applications,
+                applications: result,
                 adminName: req.session.name,
             });
         }).catch((err) => {
@@ -31,10 +31,9 @@ const getAllApproved = function(req, res) {
         .populate('animal')
         .exec()
         .then((result) => {
-            const applications = result;
             res.render('admin/application_list_approved', {
                 pageTitle: 'applications',
-                applications: applications,
+                applications: result,
                 adminName: req.session.name,
             });
         }).catch((err) => {
@@ -49,10 +48,9 @@ const getAllRejected = function(req, res) {
         .populate('animal')
         .exec()
         .then((result) => {
-            const applications = result;
             res.render('admin/application_list_rejected', {
                 pageTitle: 'applications',
-                applications: applications,
+                applications: result,
                 adminName: req.session.name,
             });
         }).catch((err) => {
@@ -68,10 +66,9 @@ const getApplication = function(req, res) {
         .populate('animal')
         .exec()
         .then((result) => {
-            const application = result;
             res.render('admin/application_detail', {
                 pageTitle: 'applications',
-                application: application,
+                application: result,
                 adminName: req.session.name,
             });
         }).catch((err) => {
@@ -89,6 +86,7 @@ const approveApplication = function(req, res) {
             const userId = application.candidate;
             const animalId = application.animal;
             Animal
+                // eslint-disable-next-line max-len
                 .findOneAndUpdate({_id: animalId}, {$set: {adopter: userId, status: 'Adopted'}})
                 .exec()
                 .then(function() {
@@ -117,9 +115,9 @@ const approveToPending = function(req, res) {
         .findOneAndUpdate({_id: applyId}, {$set: {status: 'Pending'}})
         .exec()
         .then((result) => {
-            const application = result;
-            const animalId = application.animal;
+            const animalId = result.animal;
             Animal
+                // eslint-disable-next-line max-len
                 .findOneAndUpdate({_id: animalId}, {$unset: {adopter: ''}, $set: {status: 'Waiting'}})
                 .exec()
                 .then(function() {
