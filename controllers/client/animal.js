@@ -39,7 +39,7 @@ const list = (req, res) => {
             delete body[bodyKey];
         }
     }
-    const name = body['name']
+    const name = body['name'];
     if (name) {
         body['name'] = new RegExp(name);
     }
@@ -51,6 +51,27 @@ const list = (req, res) => {
     }).catch((err) => {
         console.log(err);
         res.status(500).json({message: 'search error'});
+    });
+};
+
+const similarList = (req, res, next) => {
+    res.locals.query = req.query;
+    const body = req.query;
+    // delete properties whose value is empty string
+    for (const bodyKey in body) {
+        if (body[bodyKey] === '') {
+            delete body[bodyKey];
+        }
+    }
+    Animal.pageBriefInfoList(body)
+        .then((doc) => {
+            res.locals.animals = doc.animals;
+            res.locals.total = doc.animals;
+            res.locals.pageNum = doc.pageNum;
+            res.locals.totalPage = doc.totalPage;
+            next();
+        }).catch((err) => {
+        next(err);
     });
 };
 
@@ -94,4 +115,5 @@ module.exports = {
     list: list,
     latestList: latestList,
     detail: detail,
+    similarList: similarList,
 };

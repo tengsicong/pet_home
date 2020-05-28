@@ -17,4 +17,9 @@ router.get('/signUp', (req, res) => {
     res.render('client/signup');
 });
 
+/* index page search button */
+router.get('/similarAnimals', Animal.similarList, PetType.allTypes, (req, res) => {
+    res.render('client/similarresult');
+});
+
 module.exports = router;
