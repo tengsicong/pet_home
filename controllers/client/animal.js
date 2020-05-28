@@ -50,7 +50,7 @@ const list = (req, res) => {
         res.render('client/searchlist', doc);
     }).catch((err) => {
         console.log(err);
-        res.status(500).json({msg: 'search error'});
+        res.status(500).json({message: 'search error'});
     });
 };
 
