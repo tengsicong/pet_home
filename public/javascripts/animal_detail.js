@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $('#adopt button').click(function() {
         let modal = $('#modal-lg-applyForAdopt');
