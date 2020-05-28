@@ -109,7 +109,7 @@ const createNew = function(req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(animal));
     });
-}
+};
 
 const addComment = function(req, res) {
     const id = req.query.id;

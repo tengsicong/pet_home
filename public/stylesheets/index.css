@@ -8,7 +8,7 @@ div.dropdown-menu {
 }
 
 div.dropdown-menu > a {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-style: normal;
     color: white;
     font-size: .81rem;

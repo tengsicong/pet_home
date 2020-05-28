@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../controllers/client/user');
+const Apply = require('../controllers/client/apply');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,5 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/signUp', User.signUp);
 
 router.get('/logout', User.logout);
+
+router.post('/apply', Apply.submitApply);
 
 module.exports = router;

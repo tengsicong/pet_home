@@ -22,7 +22,7 @@
         <li class="list-group-item"><b>Owner Telephone:</b><%= " " + animal.telephone %></li>
         <li class="list-group-item"><b>Adopter:</b>
             <% if (animal.adopter == "undefined") { %>
-                " None"
+                <% "None" %>
             <% } else { %>
                 <%= animal.adopter %>
             <% } %>
