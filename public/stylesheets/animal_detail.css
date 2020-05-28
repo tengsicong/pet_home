@@ -117,3 +117,35 @@
     min-height: 200px;
     width: 100%;
 }
+
+#telephone {
+    background-color: white;
+}
+
+#street {
+    background-color: white;
+}
+
+#town {
+    background-color: white;
+}
+
+#postcode {
+    background-color: white;
+}
+
+#country {
+    background-color: white;
+}
+
+#family {
+    background-color: white;
+}
+
+input[name=ownAnimals] {
+    background-color: white;
+}
+
+#reason {
+    background-color: white;
+}

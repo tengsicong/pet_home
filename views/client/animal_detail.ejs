@@ -60,10 +60,12 @@
                             <% } else {  %>
                                     <li class="list-group-item"><b>Status: </b><span class="badge badge-warning">Unavailable</span></li>
                             <% } %>
-                            <% if (animal.dob == "undefined") {  %>
-                                <li class="list-group-item"><b>Date of birth: </b> DOB Unknown</li>
+                            <% if (animal.age == "undefined") {  %>
+                                <li class="list-group-item"><b>Age: </b> DOB Unknown</li>
+                            <% } else if (animal.age === 0) {  %>
+                                    <li class="list-group-item"><b>Age: </b> Less than a year old</li>
                             <% } else {  %>
-                                <li class="list-group-item"><b>Date of birth: </b><%= " " + animal.dob.toISOString().replace(/T.*/,' ') %></li>
+                                <li class="list-group-item"><b>Age: </b><%= " " + animal.age %></li>
                             <% } %>
                             <% if (animal.petType == "undefined") {  %>
                                 <li class="list-group-item"><b>Pet Type: </b> Pet Type Unknown</li>
@@ -207,16 +209,10 @@
                     <br>
                     <form id="adoptForm">
                         <div class="form-group">
-                            <input name="userId" type="hidden" id="userId" class="form-control" value="<%= user.id %>">
+                            <input name="animal" type="hidden" id="animal" class="form-control" value="<%= animal._id %>">
                         </div>
                         <div class="form-group">
-                            <input name="forename" type="hidden" id="forename" class="form-control" value="<%= user.firstname %>">
-                        </div>
-                        <div class="form-group">
-                            <input name="surname" type="hidden" id="surname" class="form-control" value="<%= user.surname%>">
-                        </div>
-                        <div class="form-group">
-                            <input name="email" type="hidden" id="email" class="form-control" value="<%= user.email %>">
+                            <input name="candidate" type="hidden" id="candidate" class="form-control" value="<%= user._id %>">
                         </div>
                         <div class="form-group">
                             <label for="telephone">Telephone Number: </label>
@@ -240,7 +236,7 @@
                         </div>
                         <div class="form-group">
                             <label for="family">Family Members: </label>
-                            <input name="country" type="text" id="country" class="form-control" datatype="text" min="0" max="100" required>
+                            <input name="family" type="text" id="family" class="form-control" datatype="text" min="0" max="100" required>
                         </div>
                         <div class="form-group">
                             <label for="ownAnimals">Do you currently own animals? </label><br>
@@ -257,12 +253,38 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" id="submitApp" class="btn btn-primary">Submit</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 <% } %>
+<% if (user) {%>
+    <!--modal for success/failure prompt-->
+    <div class="modal fade" id="modal-sm-failure">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Failure</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="icon fas fa-exclamation-triangle fa-2x" style="color:red"></i>
+                    <br><span class="prompt_message"></span>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+<% } %>
+
 </main>
 <script src="/javascripts/animal_detail.js"></script>
 <footer class="text-muted bg-indigo" id="footer">
