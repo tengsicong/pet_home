@@ -16,9 +16,9 @@ function validateApplication(modal) {
     let ownAnimals = validateAnimalOwnership(modal.find('input[name=ownAnimals]'));
     let reason = validateReason(modal.find('#reason'));
 
-    let results = { animal: animal, candidate: candidate, telephone: telephone, street: street,
-                    town: town, postcode: postcode, country: country, family: family, animalAlreadyHave: ownAnimals,
-                    reason: reason };
+    let results = { candidate: candidate, animal: animal, telephone: telephone, street: street,
+                    town: town, country: country, postcode: postcode, family: family, animalAlreadyHave: ownAnimals,
+                    reason: reason, status: 'Pending' };
 
     if (validateResultFields(results) === true ) {
         return results;
@@ -35,14 +35,14 @@ function validateResultFields(results) {
     let counter = 0;
     for (let key in results) {
         if (results.hasOwnProperty(key)) {
-            if ((results[key] === undefined) && counter < 10 ) {
+            if ((results[key] === undefined) && counter < 11 ) {
                 return false;
             }
-            console.log(results[key])
         }
         counter++;
     }
-    if (counter === 10) {
+    if (counter === 11) {
+        console.log(results);
         return true;
     }
 }
@@ -241,9 +241,19 @@ $(document).ready(function () {
         $('#submitApp').click(function() {
             let modal = $(this).parent().parent().find('.modal-body');
             let formResult = validateApplication(modal);
-
             if (formResult !== undefined) {
-                window.location.href = '/client/application_thanks';
+                $.ajax({
+                    url: '/users/apply',
+                    data: JSON.stringify(formResult),
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(result) {
+                        location.href = '/animal/application_thanks';
+                    },
+                    error: function(xhr, status, err) {
+                        failureModal("Error while sending Application, please contact the administrator");
+                    },
+                });
             }
         });
     });

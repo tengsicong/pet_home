@@ -123,7 +123,7 @@ const addComment = function(req, res) {
         }).catch((err) => {
             console.log(err);
         });
-}
+};
 
 
 module.exports = {

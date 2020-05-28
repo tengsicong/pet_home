@@ -15,4 +15,8 @@ router.get('/application_thanks', (req, res) => {
     res.render('client/application_thanks');
 });
 
+router.post('/add_comment', function(req, res) {
+    animal.addComment(req,res);
+});
+
 module.exports = router;

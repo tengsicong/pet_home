@@ -9,7 +9,6 @@ const config = require('config-lite')(__dirname);
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 
-
 // routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

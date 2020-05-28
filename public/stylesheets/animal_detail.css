@@ -43,7 +43,7 @@
 .commentCard {
     height: 100%;
     max-width: 100%;
-    min-width: max-content;
+    min-width: 100%;
 }
 
 .detailCard {
@@ -61,6 +61,11 @@
     width: 100%;
     table-layout: fixed;
     word-wrap: break-word;
+}
+
+.carousel-inner .item img {
+    width: auto;
+    height: auto;
 }
 
 .card-header {

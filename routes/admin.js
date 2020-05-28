@@ -26,8 +26,6 @@ const upload = require('../middlewares/uploadImg');
 // });
 // var upload = multer({ storage: storage });
 
-
-
 router.get('/pet_list_waiting', checkAdminLogin, function(req, res) {
     animal.getWaitingList(req, res);
 });
@@ -38,11 +36,11 @@ router.get('/pet_list_adopted', checkAdminLogin, function(req, res) {
 
 router.get('/pet_detail', checkAdminLogin, function(req, res) {
     animal.getAnimalDetail(req, res);
-})
+});
 
 router.post('/add_comment', checkAdminLogin, function(req, res) {
     animal.addComment(req,res);
-})
+});
 
 router.get('/application_list_pending', checkAdminLogin, function(req, res) {
     apply.getAllPending(req, res);
