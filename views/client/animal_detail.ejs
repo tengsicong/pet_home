@@ -44,7 +44,7 @@
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
                             <% if (animal.imgUrl != null) { %>
-                                <img src="<%= animal.imgUrl %>" alt="Image">
+                                <img src="<%= animal.imgUrl %>" alt="<%= animal.petType %>">
                             <% } else {  %>
                                 <img src="https://placehold.it/800x400?text=NO-IMAGE" alt="Image">
                             <% } %>
@@ -86,6 +86,12 @@
                             <% } else {  %>
                                 <li class="list-group-item"><b>Contact Number: </b><%= " " + animal.telephone %></li>
                             <% } %>
+                                <br>
+                            <form class="form-horizontal" action="/searchAnimals?breed=<%= animal.petBreed %>">
+                                <div class="text-center">
+                                    <button type="submit" class="btn" formmethod="post">Similar Animals</button>
+                                </div>
+                            </form>
                         </ul>
                     </div>
                 </div><!-- /.card-container -->
