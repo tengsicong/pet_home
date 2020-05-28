@@ -14,7 +14,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="/javascripts/mycommon.js"></script>
     <script src="/javascripts/index_page.js"></script>
-    <script src="public/javascripts/animal_detail.js"></script>
 </head>
 <body>
 <header class="mb-5">
@@ -191,78 +190,81 @@
         </div>
     </div>
 </div>
-<!--modal for group Eval-->
-<div class="modal fade" id="modal-lg-applyForAdopt">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Pet Adoption Application</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <br><span class="prompt_message"></span>
-                <br>
-                <br>
-                <form id="groupEval">
-                    <div class="form-group">
-                        <label for="forename">Forename: </label>
-                        <input name="forename" type="text" id="forename" class="form-control" required datatype="text" min="0" max="20">
-                    </div>
-                    <div class="form-group">
-                        <label for="surname">Surname: </label>
-                        <input name="surname" type="text" id="surname" class="form-control" required datatype="text" min="0" max="20">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <input name="email" type="email" id="email" class="form-control" required datatype="text" min="0" max="30">
-                    </div>
-                    <div class="form-group">
-                        <label for="telephone">Telephone Number: </label>
-                        <input name="telephone" type="tel" id="telephone" class="form-control" required datatype="number" min="0" max="10">
-                    </div>
-                    <div class="form-group">
-                        <label for="street">Street: </label>
-                        <input name="street" type="text" id="street" class="form-control" required datatype="text" min="0" max="40">
-                    </div>
-                    <div class="form-group">
-                        <label for="town">Town: </label>
-                        <input name="town" type="text" id="town" class="form-control" required datatype="text" min="0" max="15">
-                    </div>
-                    <div class="form-group">
-                        <label for="postcode">Postcode: </label>
-                        <input name="postcode" type="text" id="postcode" class="form-control" required datatype="text" min="0" max="10">
-                    </div>
-                    <div class="form-group">
-                        <label for="country">Country: </label>
-                        <input name="country" type="text" id="country" class="form-control" required datatype="text" min="0" max="15">
-                    </div>
-                    <div class="form-group">
-                        <label for="family">Family Members: </label>
-                        <input name="country" type="text" id="country" class="form-control" required datatype="text" min="0" max="100">
-                    </div>
-                    <div class="form-group">
-                        <label for="ownAnimals">Do you currently own animals? </label>
-                        <input type="radio" id="yes" name="yes" value="yes">
-                        <label for="yes">Yes</label><br>
-                        <input type="radio" id="no" name="no" value="no">
-                        <label for="no">31 - 60</label><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="reason">Reason for adoption: </label>
-                        <textarea name="reason" rows="6" id="reason"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<% if (user) {%>
+    <!--modal for group Eval-->
+    <div class="modal fade" id="modal-lg-applyForAdopt">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Pet Adoption Application</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <br><span class="prompt_message"></span>
+                    <br>
+                    <br>
+                    <form id="adoptForm">
+                        <div class="form-group">
+                            <input name="userId" type="hidden" id="userId" class="form-control" value="<%= user.id %>">
+                        </div>
+                        <div class="form-group">
+                            <input name="forename" type="hidden" id="forename" class="form-control" value="<%= user.firstname %>">
+                        </div>
+                        <div class="form-group">
+                            <input name="surname" type="hidden" id="surname" class="form-control" value="<%= user.surname%>">
+                        </div>
+                        <div class="form-group">
+                            <input name="email" type="hidden" id="email" class="form-control" value="<%= user.email %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Telephone Number: </label>
+                            <input name="telephone" type="tel" id="telephone" class="form-control" datatype="number" min="0" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Street: </label>
+                            <input name="street" type="text" id="street" class="form-control" datatype="text" min="0" max="40" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="town">Town: </label>
+                            <input name="town" type="text" id="town" class="form-control" datatype="text" min="0" max="15" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postcode">Postcode: </label>
+                            <input name="postcode" type="text" id="postcode" class="form-control" datatype="text" min="0" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country: </label>
+                            <input name="country" type="text" id="country" class="form-control" datatype="text" min="0" max="15" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="family">Family Members: </label>
+                            <input name="country" type="text" id="country" class="form-control" datatype="text" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownAnimals">Do you currently own animals? </label><br>
+                            <input type="radio" id="yes" name="ownAnimals" value="yes" required>
+                            <label for="yes">Yes</label><br>
+                            <input type="radio" id="no" name="ownAnimals" value="no" required>
+                            <label for="no">No</label><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="reason">Reason for adoption: </label><br>
+                            <textarea name="reason" id="reason" maxlength="300" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<% } %>
 </main>
+<script src="/javascripts/animal_detail.js"></script>
 <footer class="text-muted bg-indigo" id="footer">
     <%- include('footer') %>
 </footer>

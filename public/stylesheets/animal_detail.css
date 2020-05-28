@@ -93,3 +93,27 @@
     width: 20%;
 }
 
+#modal-lg-applyForAdopt .modal-header {
+    background-color: rgba(63, 81, 181, 0.9);
+    color: white;
+}
+
+#modal-lg-applyForAdopt .modal-header button {
+    color: white;
+}
+
+.modal-footer .btn-default, .modal-footer .btn-primary {
+    color: white;
+    background-color: rgba(63, 81, 181, 0.9);
+}
+
+.modal-footer .btn-default:hover, .modal-footer .btn-primary:hover {
+    color: white;
+    background-color: rgba(63, 81, 181, 1);
+}
+
+#adoptForm textarea {
+    resize: none;
+    min-height: 200px;
+    width: 100%;
+}
