@@ -1,13 +1,3 @@
-// $(function() {
-//     $('#clientRadio').click(function() {
-//         $('#loginForm').attr('action', '/user_login');
-//     });
-//
-//     $('#adminRadio').click(function() {
-//         $('#loginForm').attr('action', '/admin_login');
-//     });
-// });
-
 function sendAjaxQuery(url, data) {
     console.log(data);
     $.ajax({
@@ -23,10 +13,10 @@ function sendAjaxQuery(url, data) {
         //     // in order to have the object printed by alert
         //     // we need to JSON stringify the object
         //     document.getElementById('results').innerHTML= JSON.stringify(ret);
-            if (dataR.role == 'user') {
+            if (dataR.role === 'user') {
                 alert('Dear client ' + dataR.name + ', login successfully!');
                 window.location.href = '/';
-            } else if (dataR.role == 'admin') {
+            } else if (dataR.role === 'admin') {
                 alert('Dear admin ' + dataR.name + ', login successfully!');
                 window.location.href = '/admin/pet_list_waiting';
             } else {

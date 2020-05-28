@@ -17,4 +17,9 @@ router.get('/signUp', (req, res) => {
     res.render('client/signup');
 });
 
+/* thanks message route*/
+router.get('/application_thanks', (req, res) => {
+    res.render('client/application_thanks');
+});
+
 module.exports = router;

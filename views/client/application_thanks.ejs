@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/sign_up.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/javascripts/mycommon.js"></script>
+    <script src="/javascripts/index_page.js"></script>
+</head>
+<header class="mb-5">
+    <%- include('header') %>
+</header>
+<body>
+<div class="container my-5">
+    <div class="row justify-content-end">
+        <div class="col-md-8">
+            <h1 class="display-4 font-italic font-weight-light">Thank you <% user %>, from all of us</h1>
+            <h1 class="display-4 font-italic font-weight-light ml-5">at PetsHome 💖😸🐶</h1>
+        </div>
+        <div class="col-md-4 my-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                </div>
+                <div class="card-body">
+                    <div class="thankYouMessage">
+                        Your Application will be reviewed shortly by one of our members of staff, <br>
+                        many thanks again from us at PetsHome.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="text-muted bg-indigo" id="footer">
+    <%- include('footer') %>
+</footer>
+</body>
+</html>
