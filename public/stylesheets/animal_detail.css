@@ -26,10 +26,30 @@
     color: white;
 }
 
-.details .card {
+.anInfoCard {
+    height: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    min-width: max-content;
+}
+
+.anLocCard {
+    height: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    min-width: max-content;
+}
+
+.commentCard {
     height: 100%;
     max-width: 100%;
     min-width: max-content;
+}
+
+.detailCard {
+    height: 100%;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .details .list-group {

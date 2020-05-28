@@ -43,13 +43,17 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="https://placehold.it/800x400?text=NO-IMAGE" alt="Image">
+                            <% if (animal.imgUrl != null) { %>
+                                <img src="<%= animal.imgUrl %>" alt="Image">
+                            <% } else {  %>
+                                <img src="https://placehold.it/800x400?text=NO-IMAGE" alt="Image">
+                            <% } %>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 mb-2 mb-5">
-                <div class="card">
+                <div class="card anInfoCard">
                     <div class="card-header">
                         <h3 class="card-title">Animal Information</h3>
                     </div>
@@ -89,7 +93,7 @@
         </div>
         <div class="row">
             <div class="col-sm-8 mb-5">
-                <div class="card">
+                <div class="card detailCard">
                     <div class="card-header">
                         <h3 class="card-title">Animal Details</h3>
                     </div>
@@ -105,7 +109,7 @@
                 </div>
             </div>
             <div class="col-sm-4 mb-5">
-                <div class="card">
+                <div class="card anLocCard">
                     <div class="card-header">
                         <h3 class="card-title">Animal Location</h3>
                     </div>
@@ -138,7 +142,7 @@
         </div>
     <div class="row mb-5">
         <div class="container-fluid">
-            <div class="card">
+            <div class="card commentCard">
                 <div class="card-header">
                     <h3 class="card-title">Comments</h3>
                 </div>

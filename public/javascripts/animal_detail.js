@@ -20,25 +20,32 @@ function validateApplication(modal) {
                     town: town, postcode: postcode, country: country, family: family, animalAlreadyHave: ownAnimals,
                     reason: reason };
 
-
-    console.log(results.length);
-    //if (validateResultFields(results) === true ) {
+    if (validateResultFields(results) === true ) {
         return results;
-    //}
+    }
 }
 
-/*function validateResultFields(results) {
+/**
+ * validates data fields are filled within the application form
+ * @param results
+ * @returns {boolean}
+ */
+function validateResultFields(results) {
 
     let counter = 0;
     for (let key in results) {
         if (results.hasOwnProperty(key)) {
-            if (results[key] === undefined) {
+            if ((results[key] === undefined) && counter < 10 ) {
                 return false;
             }
+            console.log(results[key])
         }
         counter++;
     }
-}*/
+    if (counter === 10) {
+        return true;
+    }
+}
 
 /**
  * show failure modal
@@ -236,7 +243,7 @@ $(document).ready(function () {
             let formResult = validateApplication(modal);
 
             if (formResult !== undefined) {
-                console.log("test");
+                console.log(formResult);
             }
         });
     });
