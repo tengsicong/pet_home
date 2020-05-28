@@ -10,4 +10,9 @@ router.post('/add', animal.create);
 
 router.get('/detail/:id', animal.detail);
 
+/* thanks message route*/
+router.get('/application_thanks', (req, res) => {
+    res.render('client/application_thanks');
+});
+
 module.exports = router;

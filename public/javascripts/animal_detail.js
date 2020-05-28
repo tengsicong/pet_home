@@ -243,7 +243,7 @@ $(document).ready(function () {
             let formResult = validateApplication(modal);
 
             if (formResult !== undefined) {
-                console.log(formResult);
+                window.location.href = '/client/application_thanks';
             }
         });
     });

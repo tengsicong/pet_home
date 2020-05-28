@@ -11,7 +11,6 @@ function sendAjaxQuery(url, data) {
             window.location.href = '/admin/pet_list_waiting';
         },
         error: function(xhr, status, error) {
-
             alert('Error: ' + error.message);
         },
     });
