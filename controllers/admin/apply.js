@@ -1,7 +1,6 @@
 'use strict';
 const Apply = require('../../models/apply');
 const Animal = require('../../models/animal');
-// eslint-disable-next-line no-unused-vars
 const mongoose = require('mongoose');
 
 // temp attribute

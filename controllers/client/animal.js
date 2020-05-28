@@ -110,10 +110,26 @@ const detail = function(req, res, next) {
         next(err);
     });
 };
+
+const addComment = function(req, res) {
+    const id = req.query.id;
+    const comment = req.body.comment;
+    const name = req.session.name;
+    const date = new Date();
+    Animal
+        .findOneAndUpdate({_id: id}, {$push: {comment: {name: name, comment: comment, date: date}}})
+        .then(function(result) {
+            res.redirect('/animal/detail/' + id);
+        }).catch((err) => {
+        console.log(err);
+    });
+};
+
 module.exports = {
     create: create,
     list: list,
     latestList: latestList,
     detail: detail,
     similarList: similarList,
+    addComment: addComment,
 };

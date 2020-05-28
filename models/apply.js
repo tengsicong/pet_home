@@ -23,7 +23,6 @@ const Schema = new mongoose.Schema({
     createTime: {type: Date, default: Date.now()},
 });
 
-
 const Apply = mongoose.model('applys', Schema);
 
 module.exports = Apply;

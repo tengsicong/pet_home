@@ -1,18 +1,25 @@
 'use strict';
 const express = require('express');
-// eslint-disable-next-line new-cap
 const router = express.Router();
-const animal = require('../controllers/client/animal');
+const Animal = require('../controllers/client/animal');
 
-router.get('/view', animal.list);
+router.get('/view', Animal.list);
 
-router.post('/add', animal.create);
+router.post('/add', Animal.create);
 
-router.get('/detail/:id', animal.detail);
+router.get('/detail/:id', Animal.detail);
 
 /* thanks message route*/
 router.get('/application_thanks', (req, res) => {
     res.render('client/application_thanks');
 });
+
+router.post('/add_comment', function(req, res) {
+    Animal.addComment(req,res);
+});
+
+/* index page search button */
+router.post('/searchAnimals', Animal.list);
+
 
 module.exports = router;

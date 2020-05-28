@@ -5,8 +5,6 @@ const apply = require('../controllers/admin/apply');
 const checkAdminLogin = require('../middlewares/check').checkAdminLogin;
 const upload = require('../middlewares/uploadImg');
 
-
-
 // var multer = require('multer');
 
 // const path = require('path');
@@ -28,8 +26,6 @@ const upload = require('../middlewares/uploadImg');
 // });
 // var upload = multer({ storage: storage });
 
-
-
 router.get('/pet_list_waiting', checkAdminLogin, function(req, res) {
     animal.getWaitingList(req, res);
 });
@@ -40,11 +36,11 @@ router.get('/pet_list_adopted', checkAdminLogin, function(req, res) {
 
 router.get('/pet_detail', checkAdminLogin, function(req, res) {
     animal.getAnimalDetail(req, res);
-})
+});
 
-router.post('/pet_comments', checkAdminLogin, function(req, res) {
-    animal
-})
+router.post('/add_comment', checkAdminLogin, function(req, res) {
+    animal.addComment(req,res);
+});
 
 router.get('/application_list_pending', checkAdminLogin, function(req, res) {
     apply.getAllPending(req, res);

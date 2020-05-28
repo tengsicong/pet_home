@@ -71,7 +71,6 @@ function logout(req, res) {
     });
 }
 
-
 module.exports = {
     list: list,
     signUp: signUp,
