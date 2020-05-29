@@ -33,6 +33,12 @@
                         <div id="adopt" class="float-right">
                             <button class="btn">Adopt</button>
                         </div>
+                    <% } else { %>
+                        <div id="adopt" class="float-right">
+                            <form class="form-horizontal" action="/signUp" method="get">
+                                <button class="btn" type="submit">Adopt</button>
+                            </form>
+                        </div>
                     <% } %>
                 </div>
             </div>
