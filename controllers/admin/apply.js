@@ -3,9 +3,11 @@ const Apply = require('../../models/apply');
 const Animal = require('../../models/animal');
 const mongoose = require('mongoose');
 
-// temp attribute
-// const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
-
+/**
+ * get all pending adoption applications
+ * @param req
+ * @param res
+ */
 const getAllPending = function(req, res) {
     Apply
         .find({status: 'Pending'})
@@ -23,6 +25,11 @@ const getAllPending = function(req, res) {
         });
 };
 
+/**
+ * get all approved adoption application
+ * @param req
+ * @param res
+ */
 const getAllApproved = function(req, res) {
     Apply
         .find({status: 'Approved'})
@@ -40,6 +47,11 @@ const getAllApproved = function(req, res) {
         });
 };
 
+/**
+ * get all rejected adoption applications
+ * @param req
+ * @param res
+ */
 const getAllRejected = function(req, res) {
     Apply
         .find({status: 'Rejected'})
@@ -57,6 +69,11 @@ const getAllRejected = function(req, res) {
         });
 };
 
+/**
+ * get a specific application for a target id
+ * @param req
+ * @param res
+ */
 const getApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -75,6 +92,11 @@ const getApplication = function(req, res) {
         });
 };
 
+/**
+ * approve an active application
+ * @param req
+ * @param res
+ */
 const approveApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -96,6 +118,11 @@ const approveApplication = function(req, res) {
         });
 };
 
+/**
+ * reject an active application
+ * @param req
+ * @param res
+ */
 const rejectApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -108,6 +135,11 @@ const rejectApplication = function(req, res) {
         });
 };
 
+/**
+ * move an approved adoption back to pending
+ * @param req
+ * @param res
+ */
 const approveToPending = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -127,6 +159,11 @@ const approveToPending = function(req, res) {
         });
 };
 
+/**
+ * move a rejected application back to pending
+ * @param req
+ * @param res
+ */
 const rejectedToPending = function(req, res) {
     const applyId = req.query.id;
     Apply

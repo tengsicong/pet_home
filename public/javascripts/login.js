@@ -1,3 +1,8 @@
+/**
+ * post ajax method for login method
+ * @param url
+ * @param data
+ */
 function sendAjaxQuery(url, data) {
     console.log(data);
     $.ajax({
@@ -29,6 +34,9 @@ function sendAjaxQuery(url, data) {
     });
 }
 
+/**
+ * ajax post initialiser method, used for login functionality
+ */
 function login() {
     var formArray= $("form").serializeArray();
     var data={};

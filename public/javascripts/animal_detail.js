@@ -232,6 +232,11 @@ function validateReason(reasonField) {
     }
 }
 
+/**
+ * ajax get + post method for adoption application, verifies if an active a application exists
+ * for the user + animal pair. If it does then the user cannot submit an additional application,
+ * else they can submit.
+ */
 $(document).ready(function () {
     $('#adopt button').click(function() {
         let modal = $('#modal-lg-applyForAdopt');

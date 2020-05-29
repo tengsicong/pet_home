@@ -22,7 +22,6 @@ function openDetail(ele) {
 }
 
 $(function() {
-
     // whether load next page
     let loadMore = true;
     const $window = $(window);

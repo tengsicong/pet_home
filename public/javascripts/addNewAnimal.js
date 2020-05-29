@@ -1,3 +1,8 @@
+/**
+ * ajax post for uploading animal within admin functionality
+ * @param url
+ * @param data
+ */
 function sendAjaxQuery(url, data) {
     $.ajax({
         url: url ,
@@ -16,6 +21,10 @@ function sendAjaxQuery(url, data) {
     });
 }
 
+/**
+ * ajax post method initialiser method
+ * @returns {boolean}
+ */
 function addNewAnimal() {
     event.preventDefault();
     event.stopImmediatePropagation();

@@ -5,6 +5,11 @@ const mongoose = require('mongoose');
 const os = require('os');
 const osType = os.type();
 
+/**
+ * get animals waiting for adoption list
+ * @param req
+ * @param res
+ */
 const getWaitingList = function(req, res) {
     Animal
         .find({status: 'Waiting'})
@@ -21,6 +26,11 @@ const getWaitingList = function(req, res) {
         });
 };
 
+/**
+ * get animals that have been successfully adopted list
+ * @param req
+ * @param res
+ */
 const getAdoptedList = function(req, res) {
     Animal
         .find({status: 'Adopted'})
@@ -38,6 +48,11 @@ const getAdoptedList = function(req, res) {
         });
 };
 
+/**
+ * get animal details page, admin view
+ * @param req
+ * @param res
+ */
 const getAnimalDetail = function(req, res) {
     const animalId = mongoose.Types.ObjectId(req.query.id);
     Animal
@@ -56,6 +71,11 @@ const getAnimalDetail = function(req, res) {
         });
 };
 
+/**
+ * load the add new animal page and place animals
+ * @param req
+ * @param res
+ */
 const loadAddNew = function(req, res) {
     PetType
         .find()
@@ -72,6 +92,11 @@ const loadAddNew = function(req, res) {
         });
 };
 
+/**
+ * create new animal, admin functionality
+ * @param req
+ * @param res
+ */
 const createNew = function(req, res) {
     console.log('enter controller');
     const data = req.body;
@@ -79,7 +104,6 @@ const createNew = function(req, res) {
     let pathArray;
     if (osType == 'Darwin' || osType == 'Linux') {
         pathArray  = path.split('/');
-
     } else if (osType === 'Windows_NT') {
         pathArray = path.split('\\');
     }
@@ -111,6 +135,11 @@ const createNew = function(req, res) {
     });
 };
 
+/**
+ * add comment, admin side
+ * @param req
+ * @param res
+ */
 const addComment = function(req, res) {
     const id = req.query.id;
     const comment = req.body.comment;
