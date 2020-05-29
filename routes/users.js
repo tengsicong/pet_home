@@ -14,4 +14,6 @@ router.get('/logout', User.logout);
 
 router.post('/apply', Apply.submitApply);
 
+router.get('/hasActiveApp', Apply.checkAppStatus);
+
 module.exports = router;

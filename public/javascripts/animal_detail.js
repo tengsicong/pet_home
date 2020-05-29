@@ -42,7 +42,6 @@ function validateResultFields(results) {
         counter++;
     }
     if (counter === 11) {
-        console.log(results);
         return true;
     }
 }
@@ -241,14 +240,38 @@ $(document).ready(function () {
         $('#submitApp').click(function() {
             let modal = $(this).parent().parent().find('.modal-body');
             let formResult = validateApplication(modal);
-            if (formResult !== undefined) {
+            let application = { candidate: formResult.candidate,
+                                animal: formResult.animal };
+
+            if (application !== undefined) {
                 $.ajax({
-                    url: '/users/apply',
-                    data: JSON.stringify(formResult),
-                    type: 'POST',
+                    url: '/users/hasActiveApp',
+                    data: {
+                        animal: formResult.candidate,
+                        candidate: formResult.animal
+                    },
+                    type: 'GET',
                     contentType: 'application/json',
                     success: function(result) {
-                        location.href = '/animal/application_thanks';
+                        /*if (result.message === "success") {
+                            failureModal("You have an active application for this animal already.");
+                            //location.href = '/animal/application_thanks';
+                        } else {
+                            $.ajax({
+                                url: '/users/apply',
+                                data: JSON.stringify(formResult),
+                                type: 'POST',
+                                contentType: 'application/json',
+                                success: function(result) {
+                                    if (result !== undefined) {
+                                        location.href = '/animal/application_thanks';
+                                    }
+                                },
+                                error: function(xhr, status, err) {
+                                    failureModal("Error while sending Application, please contact the administrator");
+                                },
+                            });
+                        }*/
                     },
                     error: function(xhr, status, err) {
                         failureModal("Error while sending Application, please contact the administrator");
