@@ -240,44 +240,39 @@ $(document).ready(function () {
         $('#submitApp').click(function() {
             let modal = $(this).parent().parent().find('.modal-body');
             let formResult = validateApplication(modal);
-            let application = { candidate: formResult.candidate,
-                                animal: formResult.animal };
+            let candidateId = formResult.candidate.toString();
+            let animalId = formResult.animal.toString();
 
-            if (application !== undefined) {
-                $.ajax({
-                    url: '/users/hasActiveApp',
-                    data: {
-                        animal: formResult.candidate,
-                        candidate: formResult.animal
-                    },
-                    type: 'GET',
-                    contentType: 'application/json',
-                    success: function(result) {
-                        /*if (result.message === "success") {
-                            failureModal("You have an active application for this animal already.");
-                            //location.href = '/animal/application_thanks';
-                        } else {
-                            $.ajax({
-                                url: '/users/apply',
-                                data: JSON.stringify(formResult),
-                                type: 'POST',
-                                contentType: 'application/json',
-                                success: function(result) {
-                                    if (result !== undefined) {
-                                        location.href = '/animal/application_thanks';
-                                    }
-                                },
-                                error: function(xhr, status, err) {
-                                    failureModal("Error while sending Application, please contact the administrator");
-                                },
-                            });
-                        }*/
-                    },
-                    error: function(xhr, status, err) {
-                        failureModal("Error while sending Application, please contact the administrator");
-                    },
-                });
-            }
+            $.ajax({
+                url: '/users/hasActiveApp',
+                data: { animal: animalId, candidate: candidateId },
+                type: 'GET',
+                contentType: 'application/json',
+                success: function(result) {
+                    console.log(result);
+                    if (result === "No App") {
+                        $.ajax({
+                            url: '/users/apply',
+                            data: JSON.stringify(formResult),
+                            type: 'POST',
+                            contentType: 'application/json',
+                            success: function(result) {
+                                if (result !== undefined) {
+                                    location.href = '/animal/application_thanks';
+                                }
+                            },
+                            error: function(xhr, status, err) {
+                                failureModal("Error while sending Application, please contact the administrator");
+                            },
+                        });
+                    } else {
+                        failureModal("You already have an active application for this animal.");
+                    }
+                },
+                error: function(xhr, status, err) {
+                    failureModal("Error while sending Application, please contact the administrator");
+                },
+            });
         });
     });
 });
