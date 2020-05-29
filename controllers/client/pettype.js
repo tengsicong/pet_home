@@ -1,6 +1,12 @@
 const express = require('express');
 const PetType = require('../../models/pettype');
 
+/**
+ * return page
+ * @param req
+ * @param res
+ * @param next
+ */
 const page = (req, res, next) => {
     PetType.find()
         .exec()

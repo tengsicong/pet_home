@@ -2,6 +2,11 @@
 const Animal = require('../../models/animal');
 const User = require('../../models/user');
 
+/**
+ * animal creation method
+ * @param req
+ * @param res
+ */
 const create = (req, res) => {
     const data = req.body;
     User.findOne({name: data.ownerName})
@@ -54,6 +59,12 @@ const list = (req, res) => {
     });
 };
 
+/**
+ * return list of animals based on criteria
+ * @param req
+ * @param res
+ * @param next
+ */
 const similarList = (req, res, next) => {
     res.locals.query = req.query;
     const body = req.query;
@@ -111,6 +122,11 @@ const detail = function(req, res, next) {
     });
 };
 
+/**
+ * add comment functionality
+ * @param req
+ * @param res
+ */
 const addComment = function(req, res) {
     const id = req.query.id;
     const comment = req.body.comment;

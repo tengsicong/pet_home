@@ -62,6 +62,11 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+/**
+ * user logout function
+ * @param req
+ * @param res
+ */
 function logout(req, res) {
     req.session.destroy((err) => {
         if (err) {

@@ -1,6 +1,12 @@
 const Apply = require('../../models/apply');
 const mongoose = require('mongoose');
 
+
+/**
+ * post application to db
+ * @param req
+ * @param res
+ */
 function submitApply(req, res) {
     const json = req.body;
     const apply = new Apply(json);
@@ -13,11 +19,15 @@ function submitApply(req, res) {
         });
 }
 
+/**
+ * check active applications for user with target animal
+ * @param req
+ * @param res
+ * @param next
+ */
 const checkAppStatus = function(req, res, next) {
-
     const candidateId = req.query.candidate;
     const animalId = req.query.animal;
-
     Apply.find({ candidate: candidateId, animal: animalId })
         .exec()
         .then((doc) => {
