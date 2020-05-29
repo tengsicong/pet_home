@@ -17,13 +17,15 @@ const checkAppStatus = function(req, res, next) {
 
     const candidateId = req.query.candidate;
     const animalId = req.query.animal;
-    console.log(animalId);
-    console.log(candidateId);
 
-    Apply.find({ candidate: candidateId })
+    Apply.find({ candidate: candidateId, animal: animalId })
         .exec()
         .then((doc) => {
-            console.log(doc);
+            if (doc.length === 0) {
+                res.send("No App");
+            } else {
+                res.send("Active App");
+            }
         }).catch((err) => {
         next(err);
     });
