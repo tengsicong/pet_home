@@ -74,7 +74,7 @@
                             <% if (animal.petType == "undefined") {  %>
                                 <li class="list-group-item"><b>Pet Type: </b> Pet Type Unknown</li>
                             <% } else {  %>
-                                <li class="list-group-item"><b>Pet Type: </b><%= " " + animal.petType %></li>
+                                <li class="list-group-item"><b>Pet Type: </b><a href="/similarAnimals?petType=<%=animal.petType%>"><%= " " + animal.petType %></a></li>
                             <% } %>
                             <% if (animal.petBreed == "undefined") {  %>
                                 <li class="list-group-item"><b>Pet Breed: </b> Pet Breed Unknown</li>
