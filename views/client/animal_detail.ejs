@@ -33,6 +33,12 @@
                         <div id="adopt" class="float-right">
                             <button class="btn">Adopt</button>
                         </div>
+                    <% } else { %>
+                        <div id="adopt" class="float-right">
+                            <form class="form-horizontal" action="/signUp" method="get">
+                                <button class="btn" type="submit">Adopt</button>
+                            </form>
+                        </div>
                     <% } %>
                 </div>
             </div>
@@ -74,12 +80,12 @@
                             <% if (animal.petType == "undefined") {  %>
                                 <li class="list-group-item"><b>Pet Type: </b> Pet Type Unknown</li>
                             <% } else {  %>
-                                <li class="list-group-item"><b>Pet Type: </b><%= " " + animal.petType %></li>
+                                <li class="list-group-item"><b>Pet Type: </b><a href="/similarAnimals?petType=<%=animal.petType %>"> <%= " " + animal.petType %></a></li>
                             <% } %>
                             <% if (animal.petBreed == "undefined") {  %>
                                 <li class="list-group-item"><b>Pet Breed: </b> Pet Breed Unknown</li>
                             <% } else {  %>
-                                <li class="list-group-item"><b>Pet Breed: </b><%= " " + animal.petBreed %></li>
+                                <li class="list-group-item"><b>Pet Breed: </b><a href="/similarAnimals?petBreed=<%=animal.petBreed %>"> <%= " " + animal.petBreed %></a></li>
                             <% } %>
                             <% if (animal.telephone == "undefined") {  %>
                                 <li class="list-group-item"><b>Contact Number: </b> Contact Num Unknown</li>
@@ -87,11 +93,6 @@
                                 <li class="list-group-item"><b>Contact Number: </b><%= " " + animal.telephone %></li>
                             <% } %>
                                 <br>
-                            <form class="form-horizontal" action="/similarAnimals?petType=<%= animal.petType %>">
-                                <div class="text-center">
-                                    <button type="submit" class="btn" formmethod="post">Similar Animals</button>
-                                </div>
-                            </form>
                         </ul>
                     </div>
                 </div><!-- /.card-container -->

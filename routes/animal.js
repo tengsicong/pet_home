@@ -1,20 +1,26 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const checkIsAdminLogin = require('../middlewares/check').checkIsAdminLogin;
 const Animal = require('../controllers/client/animal');
 
-router.get('/view', Animal.list);
+router.get('/view', checkIsAdminLogin, function(req, res) {
+    Animal.list(req, res);
+});
 
-router.post('/add', Animal.create);
+router.get('/add', checkIsAdminLogin, function(req, res) {
+    Animal.create(req, res);
+});
 
-router.get('/detail/:id', Animal.detail);
+router.get('/detail/:id', checkIsAdminLogin, function(req, res) {
+    Animal.detail(req, res);
+});
 
-/* thanks message route*/
-router.get('/application_thanks', (req, res) => {
+router.get('/application_thanks', checkIsAdminLogin, function(req, res) {
     res.render('client/application_thanks');
 });
 
-router.post('/add_comment', function(req, res) {
+router.post('/add_comment', checkIsAdminLogin, function(req, res) {
     Animal.addComment(req,res);
 });
 

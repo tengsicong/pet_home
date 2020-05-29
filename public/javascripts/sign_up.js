@@ -1,3 +1,6 @@
+/**
+ * ajax post method for sign-up/register functionality
+ */
 $(function() {
     $('#signUpForm').submit(function() {
         event.preventDefault();

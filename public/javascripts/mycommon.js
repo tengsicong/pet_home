@@ -35,6 +35,11 @@ function sendAjaxJsonQuery(url, data) {
     });
 }
 
+/**
+ * back to top method, used for the back to top bottom functionality located on
+ * the page footer
+ * @param ele
+ */
 function backToTop(ele) {
     console.log('backto top');
     // Make sure this.hash has a value before overriding default behavior
