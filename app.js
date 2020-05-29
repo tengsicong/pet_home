@@ -32,7 +32,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    secret: 'shijieshangzh!y0uwand0ngsenhebuwand0ngsenderen',
+    secret: 'pet_home',
     resave: false,
     saveUninitialized: true,
     rolling: true,

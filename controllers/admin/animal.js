@@ -1,10 +1,19 @@
-'use strict';
+/**
+ * @author Sicong Teng
+ */
+
 const Animal = require('../../models/animal');
 const PetType = require('../../models/pettype');
 const mongoose = require('mongoose');
 const os = require('os');
 const osType = os.type();
 
+/**
+ * This function return all waiting for adoption animals' data,
+ * and send the data to the page render.
+ * @param req
+ * @param res
+ */
 const getWaitingList = function(req, res) {
     Animal
         .find({status: 'Waiting'})
@@ -21,6 +30,12 @@ const getWaitingList = function(req, res) {
         });
 };
 
+/**
+ * This function return all adopted animals' data,
+ * and send the data to the page render.
+ * @param req
+ * @param res
+ */
 const getAdoptedList = function(req, res) {
     Animal
         .find({status: 'Adopted'})
@@ -38,6 +53,12 @@ const getAdoptedList = function(req, res) {
         });
 };
 
+/**
+ * This function find a specific animal data according to its id,
+ * and return data to page render.
+ * @param req
+ * @param res
+ */
 const getAnimalDetail = function(req, res) {
     const animalId = mongoose.Types.ObjectId(req.query.id);
     Animal
@@ -56,6 +77,11 @@ const getAnimalDetail = function(req, res) {
         });
 };
 
+/**
+ * search all defined animal type and breed for add new animal page use.
+ * @param req
+ * @param res
+ */
 const loadAddNew = function(req, res) {
     PetType
         .find()
@@ -72,6 +98,12 @@ const loadAddNew = function(req, res) {
         });
 };
 
+/**
+ * receive the data from front end and new animal data.
+ * return its data.
+ * @param req
+ * @param res
+ */
 const createNew = function(req, res) {
     console.log('enter controller');
     const data = req.body;
@@ -111,6 +143,11 @@ const createNew = function(req, res) {
     });
 };
 
+/**
+ * receive a comment and add it to animal comment attribute with the user name and current data.
+ * @param req
+ * @param res
+ */
 const addComment = function(req, res) {
     const id = req.query.id;
     const comment = req.body.comment;

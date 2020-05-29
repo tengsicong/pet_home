@@ -1,11 +1,14 @@
-'use strict';
+/**
+ * @author Sicong Teng
+ */
 const Apply = require('../../models/apply');
 const Animal = require('../../models/animal');
-const mongoose = require('mongoose');
 
-// temp attribute
-// const adminId = mongoose.Types.ObjectId('5ec3e1e9045b5a3abd716ddb');
-
+/**
+ * search for all pending application and send to page render
+ * @param req
+ * @param res
+ */
 const getAllPending = function(req, res) {
     Apply
         .find({status: 'Pending'})
@@ -23,6 +26,11 @@ const getAllPending = function(req, res) {
         });
 };
 
+/**
+ * search for all approved application and send to page render
+ * @param req
+ * @param res
+ */
 const getAllApproved = function(req, res) {
     Apply
         .find({status: 'Approved'})
@@ -40,6 +48,11 @@ const getAllApproved = function(req, res) {
         });
 };
 
+/**
+ * search for all rejected application and send to page render
+ * @param req
+ * @param res
+ */
 const getAllRejected = function(req, res) {
     Apply
         .find({status: 'Rejected'})
@@ -57,6 +70,11 @@ const getAllRejected = function(req, res) {
         });
 };
 
+/**
+ * search for specific application by its id and send to page render
+ * @param req
+ * @param res
+ */
 const getApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -75,6 +93,11 @@ const getApplication = function(req, res) {
         });
 };
 
+/**
+ * search for specific application by id and change status to Approved
+ * @param req
+ * @param res
+ */
 const approveApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -96,6 +119,11 @@ const approveApplication = function(req, res) {
         });
 };
 
+/**
+ * search for specific application by id and change status to Rejected
+ * @param req
+ * @param res
+ */
 const rejectApplication = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -108,6 +136,11 @@ const rejectApplication = function(req, res) {
         });
 };
 
+/**
+ * search for specific application by id and change status from Approved to Pending
+ * @param req
+ * @param res
+ */
 const approveToPending = function(req, res) {
     const applyId = req.query.id;
     Apply
@@ -127,6 +160,11 @@ const approveToPending = function(req, res) {
         });
 };
 
+/**
+ * search for specific application by id and change status from rejected to Pending
+ * @param req
+ * @param res
+ */
 const rejectedToPending = function(req, res) {
     const applyId = req.query.id;
     Apply
