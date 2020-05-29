@@ -18,8 +18,4 @@ router.post('/add_comment', function(req, res) {
     Animal.addComment(req,res);
 });
 
-/* index page search button */
-router.post('/searchAnimals', Animal.list);
-
-
 module.exports = router;

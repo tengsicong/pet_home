@@ -5,7 +5,6 @@ const page = (req, res, next) => {
     PetType.find()
         .exec()
         .then((doc) => {
-            console.log(doc);
             res.json(doc);
         })
         .catch((err) => {

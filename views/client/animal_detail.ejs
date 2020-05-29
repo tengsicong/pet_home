@@ -87,7 +87,7 @@
                                 <li class="list-group-item"><b>Contact Number: </b><%= " " + animal.telephone %></li>
                             <% } %>
                                 <br>
-                            <form class="form-horizontal" action="/searchAnimals?breed=<%= animal.petBreed %>">
+                            <form class="form-horizontal" action="/similarAnimals?petType=<%= animal.petType %>">
                                 <div class="text-center">
                                     <button type="submit" class="btn" formmethod="post">Similar Animals</button>
                                 </div>

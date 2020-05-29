@@ -15,17 +15,15 @@ function submitApply(req, res) {
 
 const checkAppStatus = function(req, res, next) {
 
-    const candidate = mongoose.Types.ObjectId(req.query.candidate);
-    const animal = mongoose.Types.ObjectId(req.query.animal);
+    //const candidateId = mongoose.Types.ObjectId(req.query.candidate);
+    //const animalId = mongoose.Types.ObjectId("5ecbd3f46210961a36fd8d61");
+    //console.log(animalId);
+    //console.log(candidateId);
 
-    console.log(candidate);
-    console.log(animal);
-
-    Apply.find({ candidate: candidate, animal: animal })
+    Apply.find({ candidate: candidateId })
         .exec()
         .then((doc) => {
             console.log(doc);
-            //res.;
         }).catch((err) => {
         next(err);
     });
